@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <meta http-equiv="refresh" content="5">
+    <h1>{% block title %} VLC Controller {% endblock %}</h1>
+
+    <a href="vlcPlayDefaultList" type="button" class="btn btn-primary">PlayDefaultList</a>
+    <a href="vlcPlay" type="button" class="btn btn-primary">Play</a>
+    <a href="vlcPause" type="button" class="btn btn-primary">Pause</a>
+    <br><br><br>
+    <a href="vlcPrev" type="button" class="btn btn-primary">Prev</a>
+    <a href="vlcNext" type="button" class="btn btn-primary">Next</a>
+    <br><br><br>
+    <a href="vlcHelp" type="button" class="btn btn-primary">Help</a>
+    <a href="vlcInfo" type="button" class="btn btn-primary">Info</a>
+    <a href="vlcTitle" type="button" class="btn btn-primary">Title</a>
+    <a href="vlcPlaylist" type="button" class="btn btn-primary">Playlist</a>
+    <a href="vlcStatus" type="button" class="btn btn-primary">Status</a>
+
+    <h3>Is init: {{ vlc }}<h3></h3>
+
+    {% if vlc_info %}
+        <div>INFO: {{ vlc_info }}</div>
+    {% else %}
+        <div></div>
+    {% endif %}
+
+    {% if vlc_help %}
+        <div>INFO: {{ vlc_help }}</div>
+    {% else %}
+        <div></div>
+    {% endif %}
+
+    {% if vlc_status %}
+        <div>INFO: {{ vlc_status }}</div>
+    {% else %}
+        <div></div>
+    {% endif %}
+
+    {% if vlc_title %}
+        <div>Title: {{ vlc_title }}</div>
+    {% else %}
+        <div></div>
+    {% endif %}
+
+{% endblock %}
