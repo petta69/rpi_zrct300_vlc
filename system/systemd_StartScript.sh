@@ -20,7 +20,7 @@ $VLC '--intf rc --rc-host 127.0.0.1:44500 &'
 
 
 ##
-## Gunicorn (WebServer)
+## Uvicorn (APIServer)
 ##
 
 exit 0

@@ -1,7 +1,30 @@
 {% extends 'base.html' %}
 
+<!-- 
+<script type="text/javascript">
+    window.onload = function() {
+        const mainForm = document.getElementById("mainform")
+        mainForm.onsubmit = function(event) {
+            event.preventDefault();
+            fetch("/vlc", {
+                method: "GET"
+            })
+            , then(response -> {
+                // something
+            })
+            , then(() -> {
+                fetch("vlc"), {
+                    method: "GET"
+                }
+            }
+            )
+        }
+    }
+
+</script> -->
+
 {% block content %}
-    <meta http-equiv="refresh" content="5">
+    <!-- <meta http-equiv="refresh" content="5"> -->
     <h1>{% block title %} VLC Controller {% endblock %}</h1>
 
     <a href="vlcPlayDefaultList" type="button" class="btn btn-primary">PlayDefaultList</a>
@@ -19,28 +42,5 @@
 
     <h3>Is init: {{ vlc }}<h3></h3>
 
-    {% if vlc_info %}
-        <div>INFO: {{ vlc_info }}</div>
-    {% else %}
-        <div></div>
-    {% endif %}
-
-    {% if vlc_help %}
-        <div>INFO: {{ vlc_help }}</div>
-    {% else %}
-        <div></div>
-    {% endif %}
-
-    {% if vlc_status %}
-        <div>INFO: {{ vlc_status }}</div>
-    {% else %}
-        <div></div>
-    {% endif %}
-
-    {% if vlc_title %}
-        <div>Title: {{ vlc_title }}</div>
-    {% else %}
-        <div></div>
-    {% endif %}
 
 {% endblock %}
