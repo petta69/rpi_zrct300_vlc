@@ -1,5 +1,6 @@
 import socket
 import binascii
+from hashlib import sha256
 import ipaddress
 from typing import Optional
 from logger.logger import Logger
@@ -25,17 +26,28 @@ class adcp:
         
     def _connect(self):
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._sock.settimeout(0.5)
+        self._sock.settimeout(30)
         self._sock.connect(self._location)
+        response_key = self._receive_response()
+        self.logger.debug(response_key)
         ## Get password, if needed
-        try:
-            ## If we get response we need to use to authenticate
-            response = self._receive_response()
-            self.logger.debug(response)
-            ## TODO: Send response+password to host
-        except:
-            ## If no response, there is no password needed
-            self.logger.debug('No response, most likely no password needed')
+        if response_key == "NOKEY\r\n":
+            return True
+        else:
+            try: 
+                ## TODO: Send response+password to host
+                str_to_hash = f"{response_key}{self._password}"
+                auth_hash = sha256(str_to_hash.encode('us-ascii')).hexdigest()
+                auth_hash = f"{auth_hash}\r\n"
+                self.logger.debug(f"Hash to send: {auth_hash} Len: {len(auth_hash)}")
+                auth_hash_binary = str.encode(auth_hash, "us-ascii")
+
+                self._sock.send(auth_hash_binary)
+                response_passwd = self._receive_response()
+                self.logger.debug(f"Response: {response_passwd}")
+            except:
+                ## If no response, there is no password needed
+                self.logger.debug('No response, most likely no password needed')
 
 
 
@@ -69,10 +81,16 @@ class adcp:
                 # # Now add to our response_payload
                 response_payload = f"{response_payload}{response.decode('utf-8')}"
                 self.logger.debug(response)
-                # * The message is done when last '}' is receieved
-                if response_payload.endswith('\r'):
+                if response_payload.endswith('\r\n'):
                     self.logger.debug(response_payload)
-                    return response
+                    return response_payload
+                elif len(response_payload) > 7: ## Auth does not give \r
+                    self.logger.debug(response_payload)
+                    return response_payload
+                else: 
+                    self.logger.debug(response_payload)
+                    return response_payload
+
             except socket.timeout:
                 self.logger.error("Could not get answer")
                 break    
@@ -83,4 +101,8 @@ class adcp:
     ##
     def send_power_on(self):
         command = 'power "on"'
+        self._send_command(command=command)
+
+    def send_power_off(self):
+        command = 'power "off"'
         self._send_command(command=command)

@@ -74,11 +74,13 @@ async def vlc_api_function(function: ModelVLC):
 @app.get("/api/adcp/{function}")
 async def zrct_api_function(function: ModelADCP):
     try:
-        adcp_controller = adcp()
+        adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
     except:
         return {"ERROR": "Could not connect to host"}
     if function is ModelADCP.PowerOn:
         adcp_controller.send_power_on()
+    elif function is ModelADCP.PowerOff:
+        adcp_controller.send_power_off()
     return {"Function": function}
 
 

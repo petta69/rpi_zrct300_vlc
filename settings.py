@@ -13,6 +13,8 @@ class ModelConfig(BaseModel):
     adcp_host: Optional[str] = "192.168.0.10"
     adcp_port: Optional[int] = 53595
     adcp_password: Optional[str] = "chiron01"
+    visca_host: Optional[str] = "192.168.0.20"
+    visca_port: Optional[int] = 52381
     verbose: Optional[int] = 5
 
 class ReadSettings():
