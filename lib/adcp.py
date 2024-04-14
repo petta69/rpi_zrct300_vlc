@@ -106,3 +106,53 @@ class adcp:
     def send_power_off(self):
         command = 'power "off"'
         self._send_command(command=command)
+
+    def send_lightoutput1(self):
+        command = 'light_output_val 1'
+        self._send_command(command=command)
+
+    def send_lightoutput2(self):
+        command = 'light_output_val 2'
+        self._send_command(command=command)
+
+    def send_lightoutput3(self):
+        command = 'light_output_val 3'
+        self._send_command(command=command)
+
+    def send_lightoutput4(self):
+        command = 'light_output_val 4'
+        self._send_command(command=command)
+
+    def send_lightoutput5(self):
+        command = 'light_output_val 5'
+        self._send_command(command=command)
+
+    def send_lightoutput6(self):
+        command = 'light_output_val 6'
+        self._send_command(command=command)
+
+    def send_preset1(self):
+        command = 'picture_mode "mode1"'
+        self._send_command(command=command)
+
+    def send_preset2(self):
+        command = 'picture_mode "mode2"'
+        self._send_command(command=command)
+
+    def send_preset3(self):
+        command = 'picture_mode "mode3"'
+        self._send_command(command=command)
+
+    def send_preset4(self):
+        command = 'picture_mode "mode4"'
+        self._send_command(command=command)
+
+    def send_preset5(self):
+        command = 'picture_mode "mode5"'
+        self._send_command(command=command)
+
+    def send_preset6(self):
+        command = 'picture_mode "mode6"'
+        self._send_command(command=command)
+
+

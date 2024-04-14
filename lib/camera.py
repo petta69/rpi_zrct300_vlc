@@ -24,7 +24,7 @@ class Camera:
     If you wish to use multiple cameras, you will need to switch between them (use :meth:`close_connection`)
     or set them up to use different ports.
     """
-    def __init__(self, ip: str, port=52381):
+    def __init__(self, ip: str, port=52381, verbose=1):
         """:param ip: the IP address or hostname of the camera you want to talk to.
         :param port: the port number to use. 52381 is the default for most cameras.
         """
@@ -659,8 +659,36 @@ class Camera:
 
     # other inquiry commands
     
+    def autoframing_start(self):
+        """:Start PTZ Autoframing"""
+        self._send_command('7e 04 3a 01')
+
+    def autoframing_stop(self):
+        """:Stop PTZ Autoframing"""
+        self._send_command('7e 04 3a 00')
+
+    def recall_preset1(self):
+        self._send_command('04 3F 02 00')
+
+    def recall_preset2(self):
+        self._send_command('04 3F 02 01')
+
+    def recall_preset3(self):
+        self._send_command('04 3F 02 02')
+
+    def recall_preset4(self):
+        self._send_command('04 3F 02 03')
+
+    def recall_preset5(self):
+        self._send_command('04 3F 02 04')
+
+    def recall_preset6(self):
+        self._send_command('04 3F 02 05')
 
 
+##
+## Exception classes
+##
 
 class ViscaException(RuntimeError):
     """Raised when the camera doesn't like a message that it received"""
