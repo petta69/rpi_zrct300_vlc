@@ -7,7 +7,7 @@ cd $CONTROLLER_HOME
 
 ## Prepare python env
 sudo apt install virtualenv
-virtualenv .env
+virtualenv .venv
 
 ## Start the virtual environment
 VIRTUAL_ENV="$CONTROLLER_HOME/.venv"
