@@ -42,8 +42,10 @@ then
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_controller.sh
 fi
 ## Same thing for the service script
+USER=$USER
 if [ -f system/rpi_xrct300_vlc.service ]
 then
+    sed -i "s|USER|$USER|g" rpi_xrct300_vlc.service
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" rpi_xrct300_vlc.service
 fi
 
