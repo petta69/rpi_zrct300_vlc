@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=REPLACE/start_controller.sh
+ExecStart=su USER REPLACE/start_controller.sh
 
 [Install]
 WantedBy=multi-user.target
