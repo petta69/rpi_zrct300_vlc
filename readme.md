@@ -1,15 +1,16 @@
-## Install Raspberry pi5 OS 
-Install plain Raspberry pi5 OS following default instructions.
-After install:
-* open terminal
-* sudo raspi-config
-
-In raspi-config amke sure to set:
-"System Options" - "Boot/AutoLogin" -> "Desktop Autologin"
-"Interface Options" - "SSH" -> Activate SSH server
-"Performance Options" - "USB current" -> Disable USB limit
-"Advanced Options" - "Wayland" -> X11 This will change default desktop to X11 (Needed for HDR content)
-Finnish and reboot!
+## Install Raspberry pi5 OS <br>
+Install plain Raspberry pi5 OS following default instructions.<br>
+After install:<br>
+* open terminal<br>
+* sudo raspi-config<br>
+<br>
+In raspi-config amke sure to set:<br>
+"System Options" - "Boot/AutoLogin" -> "Desktop Autologin"<br>
+"Interface Options" - "SSH" -> Activate SSH server<br>
+"Performance Options" - "USB current" -> Disable USB limit<br>
+"Advanced Options" - "Wayland" -> X11 This will change default desktop to X11 (Needed for HDR content)<br>
+Finnish and reboot!<br>
+<br>
 
 
 
