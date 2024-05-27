@@ -45,8 +45,8 @@ fi
 USER=$USER
 if [ -f system/rpi_zrct300_vlc.service ]
 then
-    sed -i "s|USER|$USER|g" rpi_zrct300_vlc.service
-    sed -i "s|REPLACE|$CONTROLLER_HOME|g" rpi_zrct300_vlc.service
+    sed -i "s|USER|$USER|g" system/rpi_zrct300_vlc.service
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" system/rpi_zrct300_vlc.service
 fi
 
 sudo ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service /lib/systemd/system/rpi_zrct300_vlc.service
