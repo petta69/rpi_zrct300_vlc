@@ -49,4 +49,9 @@ then
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" rpi_zrct300_vlc.service
 fi
 
+sudo ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service /lib/systemd/system/rpi_zrct300_vlc.service
+sudo systemctl daemon-reload
+sudo systemctl enable rpi_zrct300_vlc
+sudo systemctl restart rpi_zrct300_vlc
+
 exit 0
