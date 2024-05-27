@@ -1,3 +1,20 @@
+## Install Raspberry pi5 OS 
+Install plain Raspberry pi5 OS following default instructions.
+After install:
+* open terminal
+* sudo raspi-config
+
+In raspi-config amke sure to set:
+"System Options" - "Boot/AutoLogin" -> "Desktop Autologin"
+"Interface Options" - "SSH" -> Activate SSH server
+"Performance Options" - "USB current" -> Disable USB limit
+"Advanced Options" - "Wayland" -> X11 This will change default desktop to X11 (Needed for HDR content)
+Finnish and reboot!
+
+
+
+
+
 
 Install python modules:
 pip install -r requirements.txt
