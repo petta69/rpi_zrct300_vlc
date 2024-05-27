@@ -2,20 +2,17 @@
 
 ## Make sure we use the display of logged in user
 export DISPLAY=:0
-
 export HOME=$PWD
-VIRTUAL_ENV="$HOME/.venv"
-export VIRTUAL_ENV
-## Define default config file for streamdeck
-export STREAMDECK_UI_CONFIG="$HOME/streamdeck_ui_export.json"
-
-## Start the virtual environment
-source $VIRTUAL_ENV/bin/activate
-
 cd $HOME
 
 ## Prepare python env
 sudo apt install virtualenv
+virtualenv .env
+
+## Start the virtual environment
+VIRTUAL_ENV="$HOME/.venv"
+export VIRTUAL_ENV
+source $VIRTUAL_ENV/bin/activate
 
 ## Install python modules:
 if [ -f requirements.txt ] 
@@ -26,4 +23,6 @@ else
     exit 10    
 fi
 
+## Define default config file for streamdeck
+export STREAMDECK_UI_CONFIG="$HOME/streamdeck_ui_export.json"
 
