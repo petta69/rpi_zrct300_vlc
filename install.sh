@@ -25,7 +25,7 @@ else
 fi
 
 ## Streamdeck
-sudo apt install libhidapi-libusb0
+sudo apt install libhidapi-libusb0 libxcb-cursor0
 PATH=$PATH:$HOME/.local/bin
 sudo sh -c 'echo "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"0fd9\", TAG+=\"uaccess\"" > /etc/udev/rules.d/70-streamdeck.rules'
 sudo udevadm trigger
