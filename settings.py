@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Optional
 from pydantic import BaseModel
        
@@ -8,7 +9,7 @@ from pydantic import BaseModel
 
 
 class ModelConfig(BaseModel):
-    vlc_default_videodir: Optional[str] = "/home/peter/Videos"
+    vlc_default_videodir: Optional[str] = f"{os.environ['HOME']}/Videos"
     vlc_custom_usb_videodir: Optional[str] = "media"
     adcp_host: Optional[str] = "192.168.0.10"
     adcp_port: Optional[int] = 53595

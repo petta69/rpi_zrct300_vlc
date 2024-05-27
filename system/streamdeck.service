@@ -1,0 +1,10 @@
+[Unit]
+Description=Streamdeck-ui
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/peter/source/rpi_zrct300_vlc/system/start_controller.sh
+
+[Install]
+WantedBy=multi-user.target

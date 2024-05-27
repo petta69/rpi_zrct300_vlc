@@ -5,6 +5,32 @@
             "buttons": {
                 "0": {
                     "0": {
+                        "switch_page": 3,
+                        "text": "ADCP"
+                    },
+                    "1": {
+                        "switch_page": 4,
+                        "text": "Cam"
+                    },
+                    "2": {
+                        "switch_page": 2,
+                        "text": "Video"
+                    },
+                    "3": {},
+                    "4": {},
+                    "5": {},
+                    "6": {},
+                    "7": {},
+                    "8": {},
+                    "9": {},
+                    "10": {},
+                    "11": {},
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                },
+                "1": {
+                    "0": {
                         "text": "Play",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayDefaultPlaylist -o /dev/null",
                         "icon": "/home/peter/source/rpi_zrct300_vlc/icons/noun-media-player-2097352.png"
@@ -38,66 +64,100 @@
                     "12": {},
                     "13": {},
                     "14": {
-                        "switch_page": 2,
-                        "text": ">"
+                        "switch_page": 1,
+                        "text": "Home"
                     }
                 },
-                "1": {
+                "2": {
                     "0": {
                         "text": "Power ON",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PowerOn -o /dev/null"
                     },
-                    "1": {},
-                    "2": {},
-                    "3": {},
-                    "4": {},
-                    "5": {},
-                    "6": {},
-                    "7": {},
-                    "8": {},
-                    "9": {},
-                    "10": {
-                        "switch_page": 1,
-                        "text": "<"
+                    "1": {
+                        "text": "Power Off",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PowerOff -o /dev/null"
                     },
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
-                },
-                "2": {
-                    "0": {},
-                    "1": {},
-                    "2": {},
-                    "3": {},
+                    "2": {
+                        "text": "HDMI1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputHDMI1 -o /dev/null"
+                    },
+                    "3": {
+                        "text": "HDMI2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputHDMI2 -o /dev/null"
+                    },
                     "4": {},
-                    "5": {},
-                    "6": {},
-                    "7": {},
-                    "8": {},
+                    "5": {
+                        "text": "Preset1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null"
+                    },
+                    "6": {
+                        "text": "Preset2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null"
+                    },
+                    "7": {
+                        "text": "DP1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP1 -o /dev/null"
+                    },
+                    "8": {
+                        "text": "DP2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP2 -o /dev/null"
+                    },
                     "9": {},
                     "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
+                    "11": {
+                        "text": "Light6",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput6 -o /dev/null"
+                    },
+                    "12": {
+                        "text": "Light5",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput5 -o /dev/null"
+                    },
+                    "13": {
+                        "text": "Light4",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput4 -o /dev/null"
+                    },
+                    "14": {
+                        "switch_page": 1,
+                        "text": "Home"
+                    }
                 },
                 "3": {
-                    "0": {},
-                    "1": {},
-                    "2": {},
+                    "0": {
+                        "text": "Framing ON",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/AutoFramingStart -o /dev/null"
+                    },
+                    "1": {
+                        "text": "Preset1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/Preset1 -o /dev/null"
+                    },
+                    "2": {
+                        "text": "Preset3",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/Preset3 -o /dev/null"
+                    },
                     "3": {},
                     "4": {},
-                    "5": {},
-                    "6": {},
-                    "7": {},
+                    "5": {
+                        "text": "Framing OFF",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/AutoFramingStop -o /dev/null"
+                    },
+                    "6": {
+                        "text": "Preset2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/Preset2 -o /dev/null"
+                    },
+                    "7": {
+                        "text": "Preset4",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/Preset4 -o /dev/null"
+                    },
                     "8": {},
                     "9": {},
                     "10": {},
                     "11": {},
                     "12": {},
                     "13": {},
-                    "14": {}
+                    "14": {
+                        "switch_page": 1,
+                        "text": "Home"
+                    }
                 },
                 "4": {
                     "0": {},

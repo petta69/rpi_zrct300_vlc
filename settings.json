@@ -1,7 +1,9 @@
 {
     "vlc_default_videodir": "/home/peter/Videos",
     "vlc_custom_usb_videodir": "media",
-    "adcp_host": "192.168.1.10",
-    "adcp_password": "chiron01",
+    "adcp_host": "192.168.111.252",
+    "adcp_password": "Sony1234!",
+    "visca_host": "192.168.111.20",
+    "visca_port": 52381,
     "verbose": 5
 }
