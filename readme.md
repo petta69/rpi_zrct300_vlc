@@ -20,6 +20,10 @@ Finnish and reboot!<br>
 - Start installation, "./install.sh"<br>
 - Reboot!<br>
 
+## Start controller manually<br>
+- Navigate to your project dir
+- Starct the controller with the start script2, "./start_controller.sh"
+
 ## Configure controller
 Please update settings.json file with correct values for your installation<br>
 
