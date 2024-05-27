@@ -41,4 +41,10 @@ if [ -f start_controller.sh ]
 then
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_controller.sh
 fi
+## Same thing for the service script
+if [ -f system/rpi_xrct300_vlc.service ]
+then
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_controller.sh
+fi
 
+exit 0
