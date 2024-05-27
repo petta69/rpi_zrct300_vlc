@@ -4,7 +4,7 @@ After install:<br>
 * open terminal<br>
 * sudo raspi-config<br>
 <br>
-In raspi-config amke sure to set:<br>
+In raspi-config make sure to set:<br>
 "System Options" - "Boot/AutoLogin" -> "Desktop Autologin"<br>
 "Interface Options" - "SSH" -> Activate SSH server<br>
 "Performance Options" - "USB current" -> Disable USB limit<br>
@@ -12,24 +12,14 @@ In raspi-config amke sure to set:<br>
 Finnish and reboot!<br>
 <br>
 
+## Install controller<br>
+- Create directory for source code, "mkdir source"<br>
+- Change into newly created dir, "cd source"<br>
+- Clone source code by using https link for this repo, "git clone https://github.com/petta69/rpi_zrct300_vlc.git"<br>
+- Change into new dir, "cd rpi_zrct300_vlc"<br>
+- Start installation, "./install.sh"<br>
+- Reboot!<br>
 
 
 
 
-
-Install python modules:
-pip install -r requirements.txt
-
-Start with gunicorn:
-gunicorn --config gunicorn_config.py app:app
-
-
-Streamdeck:
-https://github.com/timothycrosley/streamdeck-ui
-
-sudo apt install libhidapi-libusb0
-PATH=$PATH:$HOME/.local/bin
-python3 -m pip install --upgrade pip
-sudo sh -c 'echo "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"0fd9\", TAG+=\"uaccess\"" > /etc/udev/rules.d/70-streamdeck.rules'
-sudo udevadm trigger
-python3 -m pip install streamdeck-ui --user
