@@ -20,6 +20,8 @@ Finnish and reboot!<br>
 - Start installation, "./install.sh"<br>
 - Reboot!<br>
 
+## Configure controller
+Please update settings.json file with correct values for your installation<br>
 
 
 
