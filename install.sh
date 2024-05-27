@@ -35,3 +35,10 @@ python3 -m pip install streamdeck-ui
 ## Define default config file for streamdeck
 export STREAMDECK_UI_CONFIG="$CONTROLLER_HOME/streamdeck_ui_export.json"
 
+## Set correct CONTROLLER_HOME variable in startup script
+cd $CONTROLLER_HOME
+if [ -f start_controller.sh ]
+then
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_controller.sh
+fi
+
