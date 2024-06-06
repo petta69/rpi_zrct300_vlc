@@ -16,12 +16,12 @@ source $VIRTUAL_ENV/bin/activate
 
 cd $CONTROLLER_HOME
 
+/usr/bin/xset -dpms
 
 
 ##
-## Start the FastAPI server
+## Streamdeck
 ##
-python3 ./main.py
-
+python3 .venv/bin/streamdeck 
 
 exit 0

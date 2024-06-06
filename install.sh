@@ -41,17 +41,39 @@ if [ -f start_controller.sh ]
 then
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_controller.sh
 fi
-## Same thing for the service script
-USER=$USER
+if [ -f start_streamdeck.sh ]
+then
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_streamdeck.sh
+fi
+
+## Same thing for the service scripts
+if [ -f system/streamdeck.service ]
+then
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" system/streamdeck.service
+fi
 if [ -f system/rpi_zrct300_vlc.service ]
 then
-    sed -i "s|USER|$USER|g" system/rpi_zrct300_vlc.service
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" system/rpi_zrct300_vlc.service
 fi
 
-#sudo ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service /lib/systemd/system/rpi_zrct300_vlc.service
-#sudo systemctl daemon-reload
-#sudo systemctl enable rpi_zrct300_vlc
-#sudo systemctl restart rpi_zrct300_vlc
+
+## Now prepare dir for user service script
+if [ ! -d $HOME/.local/share/systemd/user/default.target ]
+then
+	mkdir -p $HOME/.local/share/systemd/user/default.target
+fi
+
+ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service $HOME/.local/share/systemd/user/default.target/rpi_zrct300_vlc.service
+ln -s $CONTROLLER_HOME/system/streamdeck.service $HOME/.local/share/systemd/user/default.target/streamdeck.service
+systemctl --user daemon-reload
+systemctl --user enable streamdeck
+systemctl --user enable rpi_zrct300_vlc
+systemctl --user start streamdeck
+systemctl --user start rpi_zrct300_vlc
+
+echo ""
+echo "INFO: Install is now complete. Please reboot and make sure everything is working as expected"
+echo ""
 
 exit 0
+

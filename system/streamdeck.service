@@ -1,0 +1,10 @@
+[Unit]
+Description=streamdeck
+
+[Service]
+Type=simple
+ExecStart=REPLACE/start_streamdeck.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

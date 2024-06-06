@@ -1,10 +1,10 @@
 [Unit]
 Description=rpi_zrct300_vlc
-After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=su USER REPLACE/start_controller.sh
+ExecStart=REPLACE/start_controller.sh
+Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
