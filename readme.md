@@ -20,12 +20,25 @@ Finnish and reboot!<br>
 - Start installation, "./install.sh"<br>
 - Reboot!<br>
 
-## Start controller manually<br>
-- Navigate to your project dir
-- Starct the controller with the start script2, "./start_controller.sh"
+You will now have two parts installed:<br>
+streamdeck<br>
+rpi_zrct300_vlc<br>
+<br>
+Both of these are services and are controlled from the systemd interface.<br>
+In order to check status for the streamdeck service you type(As your ordinary user):<br>
+systemd --user status streamdeck<br>
+<br>
+And for the rpi_zrct300_vlc service:<br>
+systemd --user status rpi_zrct300_vlc<br>
+<br>
+In order to restart one of the services you type (As your ordinary user)<br>
+systemd --user restart <service><br>
+<br>
 
 ## Configure controller
 Please update settings.json file with correct values for your installation<br>
 
 
+## Fixes
+2024-06-07 Added bootstrap to install script (To be used offline). Updated VLC to start play without title.<br>
 
