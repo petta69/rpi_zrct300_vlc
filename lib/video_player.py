@@ -171,25 +171,37 @@ class player():
     #     Thread(target=self.req, args=(msg,)).start()
 
 
-def find_usb_media_dir(custom_usb_videodir):
-    import subprocess
+# def find_usb_media_dir2(custom_usb_videodir):
+#     import subprocess
 
-    # Command to execute
-    command = ["sudo", "/usr/bin/find", "/media", "-maxdepth", "3", "-mindepth", "2", "-type", "d", "-name", custom_usb_videodir]
+#     # Command to execute
+#     command = ["sudo", "/usr/bin/find", "/media", "-maxdepth", "3", "-mindepth", "2", "-type", "d", "-name", custom_usb_videodir]
 
-    # Execute the command
-    result = subprocess.run(command, capture_output=True, text=True)
+#     # Execute the command
+#     result = subprocess.run(command, capture_output=True, text=True)
+#     print(f"QWE: {result}")
 
-    # Check the result
-    if result.returncode == 0:
-        paths = result.stdout.split()
-        return paths[-1]
-    else:
-        print("Error:", result.stderr)
-        return False
+#     # Check the result
+#     if result.returncode == 0:
+#         paths = result.stdout.split()
+#         return paths[-1]
+#     else:
+#         print("Error:", result.stderr)
+#         return False
  
-            
-        
+def find_usb_media_dir(custom_usb_videodir, mindepth=2, maxdepth=3):
+    start_dir = '/media'
+    depth = 0
+    for root, dirs, files in os.walk(start_dir):
+        depth = depth + 1
+        if depth >= mindepth and depth <= maxdepth and custom_usb_videodir in dirs:
+            if os.path.isdir(f"{root}/{custom_usb_videodir}"):
+                print(f"INFO: Directories in path - {root} -- {dirs}")
+                return f"{root}/{custom_usb_videodir}"
+    ## If we do not find dir we return False
+    return False        
+
+
 if __name__ == "__main__":
 
     #'vlc --intf rc --rc-host 127.0.0.1:44500'

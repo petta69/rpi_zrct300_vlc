@@ -40,5 +40,6 @@ Please update settings.json file with correct values for your installation<br>
 
 
 ## Fixes
-2024-06-07 Added bootstrap to install script (To be used offline). Updated VLC to start play without title.<br>
+2024-06-07  Added bootstrap to install script (To be used offline). Updated VLC to start play without title.<br>
+            Updated systemctl config<br>    
 

@@ -72,8 +72,8 @@ then
 	mkdir -p $HOME/.local/share/systemd/user/default.target
 fi
 
-ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service $HOME/.local/share/systemd/user/default.target/rpi_zrct300_vlc.service
-ln -s $CONTROLLER_HOME/system/streamdeck.service $HOME/.local/share/systemd/user/default.target/streamdeck.service
+sudo ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service /usr/lib/systemd/user/ 
+sudo ln -s $CONTROLLER_HOME/system/streamdeck.service /usr/lib/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable streamdeck
 systemctl --user enable rpi_zrct300_vlc
