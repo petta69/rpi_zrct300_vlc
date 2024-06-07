@@ -26,13 +26,13 @@ rpi_zrct300_vlc<br>
 <br>
 Both of these are services and are controlled from the systemd interface.<br>
 In order to check status for the streamdeck service you type(As your ordinary user):<br>
-systemd --user status streamdeck<br>
+systemctl --user status streamdeck<br>
 <br>
 And for the rpi_zrct300_vlc service:<br>
-systemd --user status rpi_zrct300_vlc<br>
+systemctl --user status rpi_zrct300_vlc<br>
 <br>
 In order to restart one of the services you type (As your ordinary user)<br>
-systemd --user restart <service><br>
+systemctl --user restart <service><br>
 <br>
 
 ## Configure controller
