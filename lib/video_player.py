@@ -11,9 +11,6 @@ class playlist():
     def __init__(self):
         pass
 
-## /usr/bin/find /media/$USER/ -maxdepth 2 -type d -name 'media'
-
-
 class player():
     def __init__(self):
         self.SEEK_TIME = 20
@@ -178,7 +175,7 @@ def find_usb_media_dir(custom_usb_videodir):
     import subprocess
 
     # Command to execute
-    command = ["/usr/bin/find", "/media", "-maxdepth", "3", "-mindepth", "2", "-type", "d", "-name", custom_usb_videodir]
+    command = ["sudo", "/usr/bin/find", "/media", "-maxdepth", "3", "-mindepth", "2", "-type", "d", "-name", custom_usb_videodir]
 
     # Execute the command
     result = subprocess.run(command, capture_output=True, text=True)

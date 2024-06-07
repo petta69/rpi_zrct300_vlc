@@ -163,9 +163,9 @@ async def visca_api_function(function: ModelVISCA):
 
 ## TemplateResponse
 @app.get("/vlc", response_class=HTMLResponse)
-async def vlc(request: Request, function: str):
+async def vlc(request: Request):
     return templates.TemplateResponse(
-        {"request": request, "function": function}, name="vlc.html"
+        request=request, name="vlc.html"
     )
 
 @app.get("/zrct300", response_class=HTMLResponse)

@@ -4,7 +4,7 @@ import time
 from logger.logger import Logger
 
 verbose = 5
-vlc_cmd='/usr/bin/vlc -f --intf rc --x11-display :0 -A alsa --alsa-audio-channels 6 --drm-vout-source-modeset --drm-vout-display HDMI-A-1 --rc-host 127.0.0.1:44500'
+vlc_cmd='/usr/bin/vlc -f --intf rc --x11-display :0 -A alsa --alsa-audio-channels 6 --drm-vout-source-modeset --drm-vout-display HDMI-A-1 --no-video-title-show --rc-host 127.0.0.1:44500'
 
 def process_exists(proc_name):
     # # Use pgrep in order to find any existing VLC process

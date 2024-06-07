@@ -32,6 +32,15 @@ sudo udevadm trigger
 python3 -m pip install streamdeck-ui
 
 
+## Bootstrap (For the webserver part)
+cd $CONTROLLER_HOME/static
+wget https://github.com/twbs/bootstrap/releases/download/v5.3.3/bootstrap-5.3.3-dist.zip
+bootstrap_file=$(find -type f -name "bootstrap*.zip")
+unzip $bootstrap_file
+bootstrap_dir=$(find -type d -name "bootstrap*")
+ln -s $bootstrap_dir bootstrap
+
+
 ## Define default config file for streamdeck
 export STREAMDECK_UI_CONFIG="$CONTROLLER_HOME/streamdeck_ui_export.json"
 
