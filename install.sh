@@ -5,8 +5,11 @@ export DISPLAY=:0
 export CONTROLLER_HOME=$PWD
 cd $CONTROLLER_HOME
 
+## First make sure system is up to date
+sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
+
 ## Prepare python env
-sudo apt install virtualenv
+sudo apt -y install virtualenv
 virtualenv .venv
 
 ## Start the virtual environment
@@ -30,6 +33,8 @@ PATH=$PATH:$HOME/.local/bin
 sudo sh -c 'echo "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"0fd9\", TAG+=\"uaccess\"" > /etc/udev/rules.d/70-streamdeck.rules'
 sudo udevadm trigger
 python3 -m pip install streamdeck-ui
+## Modidy json config file for streamdeck
+python3 correct_streamdeckSerial.py
 
 
 ## Bootstrap (For the webserver part)
