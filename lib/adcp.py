@@ -155,4 +155,18 @@ class adcp:
         command = 'picture_mode "mode6"'
         self._send_command(command=command)
 
+    def send_inputHDMI1(self):
+        command = 'input "hdmi1"'
+        self._send_command(command=command)
 
+    def send_inputHDMI2(self):
+        command = 'input "hdmi2"'
+        self._send_command(command=command)
+
+    def send_inputDP1(self):
+        command = 'input "dp1"'
+        self._send_command(command=command)
+
+    def send_inputDP2(self):
+        command = 'input "dp2"'
+        self._send_command(command=command)

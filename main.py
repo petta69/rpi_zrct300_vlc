@@ -130,6 +130,14 @@ async def adcp_api_function(function: ModelADCP):
         adcp_controller.send_lightoutput5()
     elif function is ModelADCP.LightOutput6:
         adcp_controller.send_lightoutput6()
+    elif function is ModelADCP.InputDP1:
+        adcp_controller.send_inputDP1()
+    elif function is ModelADCP.InputDP2:
+        adcp_controller.send_inputDP2()
+    elif function is ModelADCP.InputHDMI1:
+        adcp_controller.send_inputHDMI1()
+    elif function is ModelADCP.InputHDMI2:
+        adcp_controller.send_inputHDMI2()
     return {"Function": function}
 
 @app.get("/api/visca/{function}")
