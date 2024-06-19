@@ -31,14 +31,14 @@
                 },
                 "1": {
                     "0": {
-                        "text": "Play",
+                        "text": "SONY",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayDefaultPlaylist -o /dev/null",
-                        "icon": "/home/peter/source/rpi_zrct300_vlc/icons/noun-media-player-2097352.png"
+                        "icon": "icons/vlc_folder.png"
                     },
                     "1": {
-                        "text": "Play USB",
+                        "text": "USB",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayCustomPlaylist -o /dev/null",
-                        "icon": "/home/peter/source/rpi_zrct300_vlc/icons/noun-media-player-2831654.png"
+                        "icon": "icons/vlc_folder.png"
                     },
                     "2": {},
                     "3": {},
@@ -46,21 +46,25 @@
                         "text": "Restart VLC",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/RestartVLC -o /dev/null"
                     },
-                    "5": {
-                        "text": "Previous",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Prev -o /dev/null",
-                        "icon": "/home/peter/source/rpi_zrct300_vlc/icons/noun-media-player-2097358.png"
+                    "5": {},
+                    "6": {
+                        "text": "Pause",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Pause -o /dev/null",
+                        "icon": "icons/vlc_pause.png"
                     },
-                    "6": {},
                     "7": {},
                     "8": {},
                     "9": {},
                     "10": {
+                        "text": "Previous",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Prev -o /dev/null",
+                        "icon": "icons/vlc_prev.png"
+                    },
+                    "11": {
                         "text": "Next",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Next -o /dev/null",
-                        "icon": "/home/peter/source/rpi_zrct300_vlc/icons/noun-media-player-2097362.png"
+                        "icon": "icons/vlc_next.png"
                     },
-                    "11": {},
                     "12": {},
                     "13": {},
                     "14": {
@@ -262,7 +266,7 @@
                     "14": {}
                 }
             },
-            "page": 0
+            "page": 1
         }
     }
 }

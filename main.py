@@ -31,6 +31,7 @@ class ModelVLC(str, Enum):
      Stop = "Stop"
      Next = "Next"
      Prev = "Prev"
+     Pause = "Pause"
      PlayDefaultPlaylist = "PlayDefaultPlaylist"
      PlayCustomPlaylist = "PlayCustomPlaylist"
      RestartVLC = "RestartVLC"
@@ -94,6 +95,8 @@ async def vlc_api_function(function: ModelVLC):
         vlc_player.prev()
     elif function is ModelVLC.RestartVLC:
         restart_vlc()
+    elif function is ModelVLC.Pause:
+        vlc_player.pause()
     return {"Function": function} 
 
 @app.get("/api/adcp/{function}")
