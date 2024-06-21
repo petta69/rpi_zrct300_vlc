@@ -170,3 +170,64 @@ class adcp:
     def send_inputDP2(self):
         command = 'input "dp2"'
         self._send_command(command=command)
+
+    def send_inputDP12(self):
+        command = 'input "dp1_2"'
+        self._send_command(command=command)
+
+    def send_PictureMuteOn(self):
+        command = 'blank "on"'
+        self._send_command(command=command)
+
+    def send_PictureMuteOff(self):
+        command = 'blank "off"'
+        self._send_command(command=command)
+
+    def send_HDR(self):
+        command = 'hdr "st2084_sim"'
+        self._send_command(command=command)
+
+    def send_SDR(self):
+        command = 'hdr "off"'
+        self._send_command(command=command)
+
+    def send_MotionFlowOff(self):
+        command = 'motionflow "off"'
+        self._send_command(command=command)
+
+    def send_MotionFlow1(self):
+        command = 'motionflow "1"'
+        self._send_command(command=command)
+
+    def send_MotionFlow2(self):
+        command = 'motionflow "2"'
+        self._send_command(command=command)
+
+    def send_MotionFlow3(self):
+        command = 'motionflow "3"'
+        self._send_command(command=command)
+
+    def send_MotionFlow4(self):
+        command = 'motionflow "4"'
+        self._send_command(command=command)
+
+    def send_WideModeNormal(self):
+        command = 'aspect "normal"'
+        self._send_command(command=command)
+
+    def send_WideModeFull(self):
+        command = 'aspect "full"'
+        self._send_command(command=command)
+
+    def send_WideModeZoom(self):
+        command = 'aspect "zoom"'
+        self._send_command(command=command)
+
+    def send_WideModeStretch(self):
+        command = 'aspect "stretch"'
+        self._send_command(command=command)
+
+    def send_WideModeNative(self):
+        command = 'aspect "native"'
+        self._send_command(command=command)
+

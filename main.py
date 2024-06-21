@@ -52,12 +52,28 @@ class ModelADCP(str, Enum):
      InputHDMI2 = "InputHDMI2"
      InputDP1 = "InputDP1"
      InputDP2 = "InputDP2"
+     InputDP12 = "InputDP12"
      LightOutput1 = "LightOutput1"
      LightOutput2 = "LightOutput2"
      LightOutput3 = "LightOutput3"
      LightOutput4 = "LightOutput4"
      LightOutput5 = "LightOutput5"
      LightOutput6 = "LightOutput6"
+     PictureMuteOn = "PictureMuteOn"
+     PictureMuteOff = "PictureMuteOff"
+     HDR = "HDR"
+     SDR = "SDR"
+     MotionFlowOff = "MotionFlowOff"
+     MotionFlow1 = "MotionFlow1"
+     MotionFlow2 = "MotionFlow2"
+     MotionFlow3 = "MotionFlow3"
+     MotionFlow4 = "MotionFlow4"
+     WideModeNormal = "WideModeNormal"
+     WideModeFull = "WideModeFull"
+     WideModeZoom = "WideModeZoom"
+     WideModeStretch = "WideModeStretch"
+     WideModeNative = "WideModeNative"
+
 
 class ModelVISCA(str, Enum):
     '''
@@ -137,10 +153,38 @@ async def adcp_api_function(function: ModelADCP):
         adcp_controller.send_inputDP1()
     elif function is ModelADCP.InputDP2:
         adcp_controller.send_inputDP2()
+    elif function is ModelADCP.InputDP12:
+        adcp_controller.send_inputDP12()
     elif function is ModelADCP.InputHDMI1:
         adcp_controller.send_inputHDMI1()
     elif function is ModelADCP.InputHDMI2:
         adcp_controller.send_inputHDMI2()
+    elif function is ModelADCP.PictureMuteOn:
+        adcp_controller.send_PictureMuteOn()
+    elif function is ModelADCP.PictureMuteOff:
+        adcp_controller.send_PictureMuteOff()
+    elif function is ModelADCP.HDR:
+        adcp_controller.send_HDR()
+    elif function is ModelADCP.MotionFlowOff:
+        adcp_controller.send_MotionFlowOff()
+    elif function is ModelADCP.MotionFlow1:
+        adcp_controller.send_MotionFlow1()
+    elif function is ModelADCP.MotionFlow2:
+        adcp_controller.send_MotionFlow2()
+    elif function is ModelADCP.MotionFlow3:
+        adcp_controller.send_MotionFlow3()
+    elif function is ModelADCP.MotionFlow4:
+        adcp_controller.send_MotionFlow4()
+    elif function is ModelADCP.WideModeNormal:
+        adcp_controller.send_WideModeNormal()
+    elif function is ModelADCP.WideModeFull:
+        adcp_controller.send_WideModeFull()
+    elif function is ModelADCP.WideModeZoom:
+        adcp_controller.send_WideModeZoom()
+    elif function is ModelADCP.WideModeStretch:
+        adcp_controller.send_WideModeStretch()
+    elif function is ModelADCP.WideModeNative:
+        adcp_controller.send_WideModeNative()
     return {"Function": function}
 
 @app.get("/api/visca/{function}")

@@ -43,18 +43,28 @@
                     "2": {},
                     "3": {},
                     "4": {
-                        "text": "Restart VLC",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/RestartVLC -o /dev/null"
+                        "text": "Home",
+                        "command": "",
+                        "icon": "icons/adcp/home.png",
+                        "switch_page": 1
                     },
-                    "5": {},
-                    "6": {
-                        "text": "Pause",
+                    "5": {
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Pause -o /dev/null",
+                        "text": "Pause",
                         "icon": "icons/vlc_pause.png"
+                    },
+                    "6": {
+                        "text": "",
+                        "command": "",
+                        "icon": ""
                     },
                     "7": {},
                     "8": {},
-                    "9": {},
+                    "9": {
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/RestartVLC -o /dev/null",
+                        "text": "RestartVLC",
+                        "icon": "icons/vlc_restart.png"
+                    },
                     "10": {
                         "text": "Previous",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Prev -o /dev/null",
@@ -68,61 +78,85 @@
                     "12": {},
                     "13": {},
                     "14": {
-                        "switch_page": 1,
-                        "text": "Home"
+                        "switch_page": 0,
+                        "text": ""
                     }
                 },
                 "2": {
                     "0": {
                         "text": "Power ON",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PowerOn -o /dev/null"
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PowerOn -o /dev/null",
+                        "icon": "icons/adcp/on.png"
                     },
                     "1": {
                         "text": "Power Off",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PowerOff -o /dev/null"
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PowerOff -o /dev/null",
+                        "icon": "icons/adcp/standby.png"
                     },
                     "2": {
-                        "text": "HDMI1",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputHDMI1 -o /dev/null"
+                        "text": "PicMute",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PictureMuteOn -o /dev/null",
+                        "icon": "icons/adcp/pmute_on.png"
                     },
                     "3": {
-                        "text": "HDMI2",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputHDMI2 -o /dev/null"
+                        "text": "PicMute Off",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/PictureMuteOff -o /dev/null",
+                        "icon": "icons/adcp/pmute_off.png"
                     },
-                    "4": {},
+                    "4": {
+                        "text": "Home",
+                        "icon": "icons/adcp/home.png",
+                        "switch_page": 1
+                    },
                     "5": {
-                        "text": "Preset1",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null"
+                        "text": "HDMI1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputHDMI1 -o /dev/null",
+                        "icon": "icons/adcp/hdmi1.png"
                     },
                     "6": {
                         "text": "Preset2",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null"
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputHDMI2 -o /dev/null",
+                        "icon": "icons/adcp/hdmi2.png"
                     },
                     "7": {
                         "text": "DP1",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP1 -o /dev/null"
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP1 -o /dev/null",
+                        "icon": "icons/adcp/dp1.png"
                     },
                     "8": {
                         "text": "DP2",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP2 -o /dev/null"
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP2 -o /dev/null",
+                        "icon": "icons/adcp/dp2.png"
                     },
-                    "9": {},
-                    "10": {},
+                    "9": {
+                        "text": "DP1/2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/InputDP12 -o /dev/null",
+                        "icon": "icons/adcp/dp12.png"
+                    },
+                    "10": {
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null",
+                        "text": "Peset1",
+                        "icon": "icons/adcp/sdr.png"
+                    },
                     "11": {
-                        "text": "Light6",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput6 -o /dev/null"
+                        "text": "Preset2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null",
+                        "icon": "icons/adcp/hdr.png"
                     },
                     "12": {
-                        "text": "Light5",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput5 -o /dev/null"
+                        "text": "Brightness",
+                        "switch_page": 5,
+                        "icon": "icons/adcp/brightness.png"
                     },
                     "13": {
-                        "text": "Light4",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput4 -o /dev/null"
+                        "text": "MotionFlow",
+                        "switch_page": 6,
+                        "icon": "icons/adcp/motionflow.png"
                     },
                     "14": {
-                        "switch_page": 1,
-                        "text": "Home"
+                        "switch_page": 7,
+                        "text": "WideMode",
+                        "icon": "icons/adcp/widemode.png"
                     }
                 },
                 "3": {
@@ -139,7 +173,11 @@
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/Preset3 -o /dev/null"
                     },
                     "3": {},
-                    "4": {},
+                    "4": {
+                        "text": "Home",
+                        "icon": "icons/adcp/home.png",
+                        "switch_page": 1
+                    },
                     "5": {
                         "text": "Framing OFF",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/visca/AutoFramingStop -o /dev/null"
@@ -159,8 +197,8 @@
                     "12": {},
                     "13": {},
                     "14": {
-                        "switch_page": 1,
-                        "text": "Home"
+                        "switch_page": 0,
+                        "text": ""
                     }
                 },
                 "4": {
@@ -168,51 +206,135 @@
                     "1": {},
                     "2": {},
                     "3": {},
-                    "4": {},
+                    "4": {
+                        "text": "Home",
+                        "icon": "icons/adcp/home.png",
+                        "switch_page": 1
+                    },
                     "5": {},
                     "6": {},
                     "7": {},
                     "8": {},
-                    "9": {},
-                    "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
+                    "9": {
+                        "text": "Back",
+                        "switch_page": 3,
+                        "icon": "icons/adcp/up.png"
+                    },
+                    "10": {
+                        "text": "Bright 1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput1 -o /dev/null",
+                        "icon": "icons/adcp/b1a.png"
+                    },
+                    "11": {
+                        "text": "Bright 2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput2 -o /dev/null",
+                        "icon": "icons/adcp/b2a.png"
+                    },
+                    "12": {
+                        "text": "Bright 3",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput3 -o /dev/null",
+                        "icon": "icons/adcp/b3a.png"
+                    },
+                    "13": {
+                        "text": "Bright 4",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput4 -o /dev/null",
+                        "icon": "icons/adcp/b4a.png"
+                    },
+                    "14": {
+                        "text": "Bright 6",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightOutput6 -o /dev/null",
+                        "icon": "icons/adcp/b6a.png"
+                    }
                 },
                 "5": {
                     "0": {},
                     "1": {},
                     "2": {},
                     "3": {},
-                    "4": {},
+                    "4": {
+                        "switch_page": 1,
+                        "icon": "icons/adcp/home.png",
+                        "text": "Home"
+                    },
                     "5": {},
                     "6": {},
                     "7": {},
                     "8": {},
-                    "9": {},
-                    "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
+                    "9": {
+                        "text": "Back",
+                        "icon": "icons/adcp/up.png",
+                        "switch_page": 3
+                    },
+                    "10": {
+                        "text": "MotionFlow",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/MotionFlowOff -o /dev/null",
+                        "icon": "icons/adcp/off1.png"
+                    },
+                    "11": {
+                        "icon": "icons/adcp/s1.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/MotionFlow1 -o /dev/null",
+                        "text": "MotionFlow"
+                    },
+                    "12": {
+                        "text": "MotionFlow",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/MotionFlow2 -o /dev/null",
+                        "icon": "icons/adcp/s2.png"
+                    },
+                    "13": {
+                        "text": "MotionFlow",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/MotionFlow3 -o /dev/null",
+                        "icon": "icons/adcp/s3.png"
+                    },
+                    "14": {
+                        "text": "MotionFlow",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/MotionFlow4 -o /dev/null",
+                        "icon": "icons/adcp/s4.png"
+                    }
                 },
                 "6": {
                     "0": {},
                     "1": {},
                     "2": {},
                     "3": {},
-                    "4": {},
+                    "4": {
+                        "text": "Home",
+                        "icon": "icons/adcp/home.png",
+                        "switch_page": 1
+                    },
                     "5": {},
                     "6": {},
                     "7": {},
                     "8": {},
-                    "9": {},
-                    "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
-                    "14": {}
+                    "9": {
+                        "text": "Back",
+                        "switch_page": 3,
+                        "icon": "icons/adcp/up.png"
+                    },
+                    "10": {
+                        "text": "Normal",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/WideModeNormal -o /dev/null",
+                        "icon": "icons/adcp/normal.png"
+                    },
+                    "11": {
+                        "text": "Full",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/WideModeFull -o /dev/null",
+                        "icon": "icons/adcp/full.png"
+                    },
+                    "12": {
+                        "text": "Zoom",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/WideModeZoom -o /dev/null",
+                        "icon": "icons/adcp/zoom.png"
+                    },
+                    "13": {
+                        "text": "Stretch",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/WideModeStretch -o /dev/null",
+                        "icon": "icons/adcp/stretch.png"
+                    },
+                    "14": {
+                        "text": "Native",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/WideModeNative -o /dev/null",
+                        "icon": "icons/adcp/resource_native.png"
+                    }
                 },
                 "7": {
                     "0": {},
@@ -266,7 +388,10 @@
                     "14": {}
                 }
             },
-            "page": 1
+            "page": 0,
+            "brightness": 99,
+            "brightness_dimmed": 42,
+            "display_timeout": 10
         }
     }
 }
