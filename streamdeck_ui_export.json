@@ -28,7 +28,10 @@
                     "11": {},
                     "12": {},
                     "13": {},
-                    "14": {}
+                    "14": {
+                        "switch_page": 10,
+                        "text": "System"
+                    }
                 },
                 "1": {
                     "0": {
@@ -77,10 +80,15 @@
                         "icon": "icons/vlc_next.png"
                     },
                     "12": {},
-                    "13": {},
+                    "13": {
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null",
+                        "text": "Peset1",
+                        "icon": "icons/adcp/sdr.png"
+                    },
                     "14": {
-                        "switch_page": 0,
-                        "text": ""
+                        "text": "Preset2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null",
+                        "icon": "icons/adcp/hdr.png"
                     }
                 },
                 "2": {
@@ -376,7 +384,12 @@
                     "1": {},
                     "2": {},
                     "3": {},
-                    "4": {},
+                    "4": {
+                        "text": "Home",
+                        "command": "",
+                        "icon": "icons/adcp/home.png",
+                        "switch_page": 1
+                    },
                     "5": {},
                     "6": {},
                     "7": {},
@@ -386,10 +399,14 @@
                     "11": {},
                     "12": {},
                     "13": {},
-                    "14": {}
+                    "14": {
+                        "text": "Restart",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/system/Restart -o /dev/null",
+                        "icon": "icons/vlc_restart.png"
+                    }
                 }
             },
-            "page": 2,
+            "page": 1,
             "brightness": 99,
             "brightness_dimmed": 42,
             "display_timeout": 10

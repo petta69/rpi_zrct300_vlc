@@ -14,6 +14,7 @@ from lib.video_player import player
 from lib.start_vlc import restart_vlc, start_vlc
 from lib.adcp import adcp
 from lib.camera import Camera
+from lib.system import reboot_rpi
 
 config = ReadConfig()
 
@@ -88,6 +89,11 @@ class ModelVISCA(str, Enum):
     Preset5 = "Preset5"
     Preset6 = "Preset6"
 
+class ModelSystem(str, Enum):
+    '''
+    Valid functions for the system class
+    '''
+    Restart = "Restart"
 
 ## API calls
 @app.get("/api/vlc/{function}")
@@ -210,6 +216,12 @@ async def visca_api_function(function: ModelVISCA):
     elif function is ModelVISCA.Preset6:
         visca_controller.recall_preset6()
 
+
+@app.get("/api/system/{function}")
+async def system_api_function(function: ModelSystem):
+    if function is ModelSystem.Restart:
+        ## Rebooting PI5
+        reboot_rpi()
 
 
 
