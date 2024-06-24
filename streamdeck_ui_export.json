@@ -6,7 +6,7 @@
                 "0": {
                     "0": {
                         "switch_page": 3,
-                        "text": "ADCP"
+                        "text": "CLED"
                     },
                     "1": {
                         "switch_page": 4,
@@ -14,7 +14,8 @@
                     },
                     "2": {
                         "switch_page": 2,
-                        "text": "Video"
+                        "text": "Video",
+                        "icon": "icons/VLC_icon.png"
                     },
                     "3": {},
                     "4": {},
@@ -41,7 +42,11 @@
                         "icon": "icons/vlc_folder.png"
                     },
                     "2": {},
-                    "3": {},
+                    "3": {
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/RestartVLC -o /dev/null",
+                        "text": "RestartVLC",
+                        "icon": "icons/vlc_restart.png"
+                    },
                     "4": {
                         "text": "Home",
                         "command": "",
@@ -60,11 +65,7 @@
                     },
                     "7": {},
                     "8": {},
-                    "9": {
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/RestartVLC -o /dev/null",
-                        "text": "RestartVLC",
-                        "icon": "icons/vlc_restart.png"
-                    },
+                    "9": {},
                     "10": {
                         "text": "Previous",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Prev -o /dev/null",
@@ -144,9 +145,9 @@
                         "icon": "icons/adcp/hdr.png"
                     },
                     "12": {
-                        "text": "Brightness",
+                        "text": "Light",
                         "switch_page": 5,
-                        "icon": "icons/adcp/brightness.png"
+                        "icon": "icons/adcp/lightoutput.png"
                     },
                     "13": {
                         "text": "MotionFlow",
@@ -388,7 +389,7 @@
                     "14": {}
                 }
             },
-            "page": 0,
+            "page": 2,
             "brightness": 99,
             "brightness_dimmed": 42,
             "display_timeout": 10
