@@ -25,9 +25,12 @@ class adcp:
             return False
         
     def _connect(self):
-        self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._sock.settimeout(30)
-        self._sock.connect(self._location)
+        try:
+            self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self._sock.settimeout(30)
+            self._sock.connect(self._location)
+        except:
+            return False
         response_key = self._receive_response()
         self.logger.debug(response_key)
         ## Get password, if needed
@@ -56,7 +59,10 @@ class adcp:
         
     def _send_command(self, command: str) -> Optional[str]:
         ## First we make the connection
-        self._connect()
+        if not self._connect():
+            error_dict = {"ERROR": "Could not make connection to device"}
+            self.logger.debug(error_dict)
+            return error_dict
 
         ## Now send command
         command = f'{command}\r\n'
@@ -70,7 +76,7 @@ class adcp:
             self.logger.debug(f"Response: {response}")
         except:
             response = []
-        return response
+        return {"Response": response}
         
     def _receive_response(self) -> Optional[dict]:
         response_payload = ""
@@ -101,133 +107,141 @@ class adcp:
     ##
     def send_power_on(self):
         command = 'power "on"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_power_off(self):
         command = 'power "off"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_lightoutput1(self):
         command = 'light_output_val 1'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_lightoutput2(self):
         command = 'light_output_val 2'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_lightoutput3(self):
         command = 'light_output_val 3'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_lightoutput4(self):
         command = 'light_output_val 4'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_lightoutput5(self):
         command = 'light_output_val 5'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_lightoutput6(self):
         command = 'light_output_val 6'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_preset1(self):
         command = 'picture_mode "mode1"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_preset2(self):
         command = 'picture_mode "mode2"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_preset3(self):
         command = 'picture_mode "mode3"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_preset4(self):
         command = 'picture_mode "mode4"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_preset5(self):
         command = 'picture_mode "mode5"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_preset6(self):
         command = 'picture_mode "mode6"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_inputHDMI1(self):
         command = 'input "hdmi1"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_inputHDMI2(self):
         command = 'input "hdmi2"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_inputDP1(self):
         command = 'input "dp1"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_inputDP2(self):
         command = 'input "dp2"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_inputDP12(self):
         command = 'input "dp1_2"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_PictureMuteOn(self):
         command = 'blank "on"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_PictureMuteOff(self):
         command = 'blank "off"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_HDR(self):
         command = 'hdr "st2084_sim"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_SDR(self):
         command = 'hdr "off"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
+
+    def send_RealitycreationOn(self):
+        command = 'real_cre "on"'
+        return self._send_command(command=command)
+
+    def send_RealityCreationOff(self):
+        command = 'real_cre "off"'
+        return self._send_command(command=command)
 
     def send_MotionFlowOff(self):
         command = 'motionflow "off"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_MotionFlow1(self):
         command = 'motionflow "1"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_MotionFlow2(self):
         command = 'motionflow "2"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_MotionFlow3(self):
         command = 'motionflow "3"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_MotionFlow4(self):
         command = 'motionflow "4"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_WideModeNormal(self):
         command = 'aspect "normal"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_WideModeFull(self):
         command = 'aspect "full"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_WideModeZoom(self):
         command = 'aspect "zoom"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_WideModeStretch(self):
         command = 'aspect "stretch"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 
     def send_WideModeNative(self):
         command = 'aspect "native"'
-        self._send_command(command=command)
+        return self._send_command(command=command)
 

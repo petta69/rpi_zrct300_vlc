@@ -3,4 +3,51 @@
 
 {% block content %}
     <h1>{% block title %} ZRCT-300 Controller {% endblock %}</h1>
+    <body>
+        <div class="container">            
+            <map id="imgmap20246268412" name="imgmap20246268412">
+                <area shape="circle" alt="" title="Standby" coords="129,121,39" href="?function=PowerOff" target="_self" />
+                <area shape="circle" alt="" title="PowerOn" coords="551,121,39" href="?function=PowerOn" target="_self" />
+                <area shape="circle" alt="" title="PictureMuteOff" coords="284,121,39" href="?function=PicMuteOn" target="_self" />
+                <area shape="circle" alt="" title="PictureMuteOn" coords="397,121,39" href="?function=PicMuteOff" target="_self" />
+                
+                <area shape="circle" alt="" title="HDMI1" coords="129,227,39" href="?function=HDMI1" target="_self" />
+                <area shape="circle" alt="" title="HDMI2" coords="239,227,39" href="?function=HDMI2" target="_self" />
+                <area shape="circle" alt="" title="DP1" coords="342,227,39" href="?function=DP1" target="_self" />
+                <area shape="circle" alt="" title="DP2" coords="451,227,39" href="?function=DP2" target="_self" />
+                <area shape="circle" alt="" title="DP1/2" coords="551,227,39" href="?function=DP12" target="_self" />
+
+                <area shape="circle" alt="" title="LightOutput1" coords="129,339,39" href="?function=LightOutput1" target="_self" />
+                <area shape="circle" alt="" title="LightOutput2" coords="239,339,39" href="?function=LightOutput2" target="_self" />
+                <area shape="circle" alt="" title="LightOutput3" coords="342,339,39" href="?function=LightOutput3" target="_self" />
+                <area shape="circle" alt="" title="LightOutput4" coords="451,339,39" href="?function=LightOutput4" target="_self" />
+                <area shape="circle" alt="" title="LightOutput6" coords="551,339,39" href="?function=LightOutput6" target="_self" />
+
+                <area shape="circle" alt="" title="Preset1" coords="129,463,39" href="?function=Preset1" target="_self" />
+                <area shape="circle" alt="" title="Preset2" coords="239,463,39" href="?function=Preset2" target="_self" />
+                <area shape="circle" alt="" title="RealityCreationOn" coords="451,463,39" href="?function=RealityCreationOn" target="_self" />
+                <area shape="circle" alt="" title="RealityCreationOff" coords="551,463,39" href="?function=RealityCreationOff" target="_self" />
+
+                <area shape="circle" alt="" title="MotionFlowOff" coords="129,571,39" href="?function=MotionFlowOff" target="_self" />
+                <area shape="circle" alt="" title="MotionFlow1" coords="239,571,39" href="?function=MotionFlow1" target="_self" />
+                <area shape="circle" alt="" title="MotionFlow2" coords="342,571,39" href="?function=MotionFlow2" target="_self" />
+                <area shape="circle" alt="" title="MotionFlow3" coords="451,571,39" href="?function=MotionFlow3" target="_self" />
+                <area shape="circle" alt="" title="MotionFlow4" coords="551,571,39" href="?function=MotionFlow4" target="_self" />
+
+                <area shape="circle" alt="" title="WideModeNormal" coords="129,686,39" href="?function=WideModeNormal" target="_self" />
+                <area shape="circle" alt="" title="WideModeFull" coords="239,686,39" href="?function=WideModeFull" target="_self" />
+                <area shape="circle" alt="" title="WideModeZoom" coords="342,686,39" href="?function=WideModeZoom" target="_self" />
+                <area shape="circle" alt="" title="WideModeStretch" coords="451,686,39" href="?function=WideModeStretch" target="_self" />
+                <area shape="circle" alt="" title="WideModeNative" coords="551,686,39" href="?function=WideModeNative" target="_self" />
+            </map>
+            <img src="images/cled_landscape.png" usemap="#imgmap20246268412" class="img-fluid">
+        </div>
+
+        <div class="container">
+            {% if status %}
+                <p>Status: {{ status }}</p>
+            {% endif %}
+        </div>
+
+    </body>
 {% endblock %}

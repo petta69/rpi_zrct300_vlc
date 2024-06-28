@@ -21,6 +21,7 @@ config = ReadConfig()
 app = FastAPI(title="RPI5 Control")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/images", StaticFiles(directory="images"), name="images")
 templates = Jinja2Templates(directory="templates")
 
 
@@ -69,6 +70,8 @@ class ModelADCP(str, Enum):
      MotionFlow2 = "MotionFlow2"
      MotionFlow3 = "MotionFlow3"
      MotionFlow4 = "MotionFlow4"
+     RealityCreationOn = "RealityCreatonOn"
+     RealityCreationOff = "RealityCreationOff"
      WideModeNormal = "WideModeNormal"
      WideModeFull = "WideModeFull"
      WideModeZoom = "WideModeZoom"
@@ -123,75 +126,81 @@ async def vlc_api_function(function: ModelVLC):
 
 @app.get("/api/adcp/{function}")
 async def adcp_api_function(function: ModelADCP):
+    result = False
     try:
         adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
     except:
         return {"ERROR": "Could not connect to host"}
     if function is ModelADCP.PowerOn:
-        adcp_controller.send_power_on()
+        result = adcp_controller.send_power_on()
     elif function is ModelADCP.PowerOff:
-        adcp_controller.send_power_off()
+        result = adcp_controller.send_power_off()
     elif function is ModelADCP.Preset1:
-        adcp_controller.send_preset1()
+        result = adcp_controller.send_preset1()
     elif function is ModelADCP.Preset2:
-        adcp_controller.send_preset2()
+        result = adcp_controller.send_preset2()
     elif function is ModelADCP.Preset3:
-        adcp_controller.send_preset3()
+        result = adcp_controller.send_preset3()
     elif function is ModelADCP.Preset4:
-        adcp_controller.send_preset4()
+        result = adcp_controller.send_preset4()
     elif function is ModelADCP.Preset5:
-        adcp_controller.send_preset5()
+        result = adcp_controller.send_preset5()
     elif function is ModelADCP.Preset6:
-        adcp_controller.send_preset6()
+        result = adcp_controller.send_preset6()
     elif function is ModelADCP.LightOutput1:
-        adcp_controller.send_lightoutput1()
+        result = adcp_controller.send_lightoutput1()
     elif function is ModelADCP.LightOutput2:
-        adcp_controller.send_lightoutput2()
+        result = adcp_controller.send_lightoutput2()
     elif function is ModelADCP.LightOutput3:
-        adcp_controller.send_lightoutput3()
+        result = adcp_controller.send_lightoutput3()
     elif function is ModelADCP.LightOutput4:
-        adcp_controller.send_lightoutput4()
+        result = adcp_controller.send_lightoutput4()
     elif function is ModelADCP.LightOutput5:
-        adcp_controller.send_lightoutput5()
+        result = adcp_controller.send_lightoutput5()
     elif function is ModelADCP.LightOutput6:
-        adcp_controller.send_lightoutput6()
+        result = adcp_controller.send_lightoutput6()
     elif function is ModelADCP.InputDP1:
-        adcp_controller.send_inputDP1()
+        result = adcp_controller.send_inputDP1()
     elif function is ModelADCP.InputDP2:
-        adcp_controller.send_inputDP2()
+        result = adcp_controller.send_inputDP2()
     elif function is ModelADCP.InputDP12:
-        adcp_controller.send_inputDP12()
+        result = adcp_controller.send_inputDP12()
     elif function is ModelADCP.InputHDMI1:
-        adcp_controller.send_inputHDMI1()
+        result = adcp_controller.send_inputHDMI1()
     elif function is ModelADCP.InputHDMI2:
-        adcp_controller.send_inputHDMI2()
+        result = adcp_controller.send_inputHDMI2()
     elif function is ModelADCP.PictureMuteOn:
-        adcp_controller.send_PictureMuteOn()
+        result = adcp_controller.send_PictureMuteOn()
     elif function is ModelADCP.PictureMuteOff:
-        adcp_controller.send_PictureMuteOff()
+        result = adcp_controller.send_PictureMuteOff()
     elif function is ModelADCP.HDR:
-        adcp_controller.send_HDR()
+        result = adcp_controller.send_HDR()
+    elif function is ModelADCP.RealityCreationOn:
+        result = adcp_controller.send_RealitycreationOn()
+    elif function is ModelADCP.RealityCreationOff:
+        result = adcp_controller.send_RealityCreationOff()
     elif function is ModelADCP.MotionFlowOff:
-        adcp_controller.send_MotionFlowOff()
+        result = adcp_controller.send_MotionFlowOff()
     elif function is ModelADCP.MotionFlow1:
-        adcp_controller.send_MotionFlow1()
+        result = adcp_controller.send_MotionFlow1()
     elif function is ModelADCP.MotionFlow2:
-        adcp_controller.send_MotionFlow2()
+        result = adcp_controller.send_MotionFlow2()
     elif function is ModelADCP.MotionFlow3:
-        adcp_controller.send_MotionFlow3()
+        result = adcp_controller.send_MotionFlow3()
     elif function is ModelADCP.MotionFlow4:
-        adcp_controller.send_MotionFlow4()
+        result = adcp_controller.send_MotionFlow4()
     elif function is ModelADCP.WideModeNormal:
-        adcp_controller.send_WideModeNormal()
+        result = adcp_controller.send_WideModeNormal()
     elif function is ModelADCP.WideModeFull:
-        adcp_controller.send_WideModeFull()
+        result = adcp_controller.send_WideModeFull()
     elif function is ModelADCP.WideModeZoom:
-        adcp_controller.send_WideModeZoom()
+        result = adcp_controller.send_WideModeZoom()
     elif function is ModelADCP.WideModeStretch:
-        adcp_controller.send_WideModeStretch()
+        result = adcp_controller.send_WideModeStretch()
     elif function is ModelADCP.WideModeNative:
-        adcp_controller.send_WideModeNative()
-    return {"Function": function}
+        result = adcp_controller.send_WideModeNative()
+    
+    return result
 
 @app.get("/api/visca/{function}")
 async def visca_api_function(function: ModelVISCA):
@@ -236,9 +245,14 @@ async def vlc(request: Request):
     )
 
 @app.get("/zrct300", response_class=HTMLResponse)
-async def zrct300(request: Request):
+async def zrct300(request: Request, function: ModelADCP | None=None):
+    context = {}
+    if function:
+        result = await adcp_api_function(function)  
+        context["status"] = result
+
     return templates.TemplateResponse(
-        request=request, name="zrct300.html"
+        request=request, name="zrct300.html", context=context
     )
 
 
@@ -248,6 +262,11 @@ async def home(request: Request):
         request=request, name="index.html"
     )
 
+@app.get('/settings', response_class=HTMLResponse)
+async def settings(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="settings.html"
+    )
 
 if(__name__) == '__main__':
         import uvicorn
