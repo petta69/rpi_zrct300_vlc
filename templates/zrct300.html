@@ -11,11 +11,11 @@
                 <area shape="circle" alt="" title="PictureMuteOff" coords="284,121,39" href="?function=PicMuteOn" target="_self" />
                 <area shape="circle" alt="" title="PictureMuteOn" coords="397,121,39" href="?function=PicMuteOff" target="_self" />
                 
-                <area shape="circle" alt="" title="HDMI1" coords="129,227,39" href="?function=HDMI1" target="_self" />
-                <area shape="circle" alt="" title="HDMI2" coords="239,227,39" href="?function=HDMI2" target="_self" />
-                <area shape="circle" alt="" title="DP1" coords="342,227,39" href="?function=DP1" target="_self" />
-                <area shape="circle" alt="" title="DP2" coords="451,227,39" href="?function=DP2" target="_self" />
-                <area shape="circle" alt="" title="DP1/2" coords="551,227,39" href="?function=DP12" target="_self" />
+                <area shape="circle" alt="" title="HDMI1" coords="129,227,39" href="?function=InputHDMI1" target="_self" />
+                <area shape="circle" alt="" title="HDMI2" coords="239,227,39" href="?function=InputHDMI2" target="_self" />
+                <area shape="circle" alt="" title="DP1" coords="342,227,39" href="?function=InputDP1" target="_self" />
+                <area shape="circle" alt="" title="DP2" coords="451,227,39" href="?function=InputDP2" target="_self" />
+                <area shape="circle" alt="" title="DP1/2" coords="551,227,39" href="?function=InputDP12" target="_self" />
 
                 <area shape="circle" alt="" title="LightOutput1" coords="129,339,39" href="?function=LightOutput1" target="_self" />
                 <area shape="circle" alt="" title="LightOutput2" coords="239,339,39" href="?function=LightOutput2" target="_self" />
@@ -45,9 +45,17 @@
 
         <div class="container">
             {% if status %}
-                <p>Status: {{ status }}</p>
+                <div id="status-text">Status: {{ status }}</div>
             {% endif %}
         </div>
+
+
+        <script>
+            setTimeout(function () {
+                document.getElementById('status-text').style.display = 'none'
+            }, 5000)
+        </script>
+    
 
     </body>
 {% endblock %}

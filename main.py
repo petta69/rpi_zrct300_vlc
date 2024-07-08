@@ -4,12 +4,12 @@ import sys
 import os
 
 from enum import Enum
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from settings import ReadConfig
+from settings import ReadConfig, ModelConfig, SaveConfig
 from lib.video_player import player
 from lib.start_vlc import restart_vlc, start_vlc
 from lib.adcp import adcp
@@ -246,9 +246,11 @@ async def vlc(request: Request):
 
 @app.get("/zrct300", response_class=HTMLResponse)
 async def zrct300(request: Request, function: ModelADCP | None=None):
+    ## If we get a function we need to execute that action. Result is used to print status.
     context = {}
     if function:
-        result = await adcp_api_function(function)  
+        result = await adcp_api_function(function)
+        ## Create context to pass to bootstrap
         context["status"] = result
 
     return templates.TemplateResponse(
@@ -264,8 +266,53 @@ async def home(request: Request):
 
 @app.get('/settings', response_class=HTMLResponse)
 async def settings(request: Request):
+    ## Uses settings.json to print all valid keys and values
+    settings = {}
+    context = {}
+    for k,v in iter(config):
+        ## Transcode BaseModel object to dict
+        print(f"{k} -> {v}")
+        settings[k] = v
+    context['config'] = settings
     return templates.TemplateResponse(
-        request=request, name="settings.html"
+        request=request, name="settings.html", context=context
+    )
+
+@app.post('/settings')
+async def settings_update(request: Request, 
+                          vlc_default_videodir: str = Form(config.vlc_default_videodir),
+                          vlc_custom_usb_videodir: str = Form(config.vlc_custom_usb_videodir),
+                          adcp_host: str = Form(config.adcp_host),
+                          adcp_port: int = Form(config.adcp_port),
+                          adcp_password: str = Form(config.adcp_password),
+                          visca_host: str = Form(config.visca_host),
+                          visca_port: int = Form(config.visca_port),
+                          verbose: int = Form(config.verbose)):
+    ## After pressing submit we need to save dict to settings.json
+    data = {
+        'vlc_default_videodir': vlc_default_videodir,
+        'vlc_custom_usb_videodir': vlc_custom_usb_videodir,
+        'adcp_host': adcp_host,
+        'adcp_port': adcp_port,
+        'adcp_password': adcp_password,
+        'visca_host': visca_host,
+        'visca_port': visca_port,
+        'verbose': verbose
+    }
+    data_config = ModelConfig(**data)
+    ## This save also read out the updated config
+    config = SaveConfig(data_config)
+
+    settings = {}
+    context = {}
+    for k,v in iter(config):
+        ## Transcode BaseModel object to dict
+        print(f"{k} -> {v}")
+        settings[k] = v
+    context['config'] = settings
+
+    return templates.TemplateResponse(
+        request=request, name="settings.html", context=context
     )
 
 if(__name__) == '__main__':

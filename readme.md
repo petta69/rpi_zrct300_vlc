@@ -49,6 +49,7 @@ Now type: git pull<br>
 This command will NOT overwrite your existing files. It will only update the files that has not been edited.<br>
 
 ## Fixes
+2024-07-08  webUI: Added settings page. Updated status text for zrct-300 page.<br>
 2024-06-28  Updated streamdeck layout. Added return text from controller to API. Added webUI for the ZRCT-300.
 2024-06-18  Added missing input changes for DP/HDMI over ADCP. Updated installer to deal with serial number for<br>
             streamdeck panel.<br>

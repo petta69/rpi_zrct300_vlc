@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} ZRCT-300 Controller {% endblock %}</h1>
+    <body>
+        <div class="container">            
+
+            <p><b>Settings:</b></p>
+
+            <form method="post" id="settings" action="/settings">
+                <div class="form-group">
+                    {% for key, value in config.items() %}
+                    <div class="row">
+                        <div class="col">
+                            <label id="settings_key" for="setting_value">{{ key }}</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="setting_value" name="{{ key }}" placeholder="{{ value }}">    
+                        </div>
+                        <div><br></div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+
+
+        </div>
+
+    </body>
+{% endblock %}

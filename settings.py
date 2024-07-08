@@ -31,10 +31,27 @@ class ReadSettings():
         except FileNotFoundError:
             print(f"ERROR: File not found: {self.filename}")
             return False
-        
+    
+    def save_data(self, config):
+        try:
+            with open(self.filename, "+w") as outfile:
+                data = {}
+                for k,v in iter(config):
+                    ## Transcode BaseModel object to dict
+                    print(f"{k} -> {v}")
+                    data[k] = v
+                json.dump(data, outfile, indent=4)
+        except FileNotFoundError:
+            print(f"ERROR: File not found: {self.filename}")
+            return False
 
 def ReadConfig():
     reader = ReadSettings()
+    return reader.read_data()
+
+def SaveConfig(config):
+    reader = ReadSettings()
+    reader.save_data(config=config)
     return reader.read_data()
 
 if __name__ == "__main__":
