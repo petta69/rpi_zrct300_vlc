@@ -1,6 +1,14 @@
+body {
+    background-color: #423b3b;
+}
+
 h1 {
     border: 2px #eee solid;
-    color: brown;
+    color: white;
     text-align: center;
     padding: 10px;
+}
+
+div {
+    color: white;
 }
