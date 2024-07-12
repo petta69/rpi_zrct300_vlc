@@ -1,7 +1,8 @@
 import json
 import usb.core
 
-STREAMDECK_CONFIG = "streamdeck_ui_export.json"
+STREAMDECK_CONFIG = "system/install/streamdeck_ui_export.json"
+STREAMDECK_CONFIG_OUT = "streamdeck_ui_export.json"
 
 ELGATO = {
     'USB_VID_ELGATO': 0x0fd9,
@@ -38,9 +39,11 @@ def main():
 
 
     ## Edit existing json setting file
-    with open(STREAMDECK_CONFIG) as json_file:
-            json_data = json.load(json_file)
-
+    try:
+        with open(STREAMDECK_CONFIG) as json_file:
+                json_data = json.load(json_file)
+    except:
+         print(f"ERROR: Could not open file {STREAMDECK_CONFIG}")
 
     #test = json_data['state']
     key_list = list(json_data['state'].keys())
@@ -51,11 +54,11 @@ def main():
     json_object = json.dumps(json_data, indent=4)
  
     # Writing file
-    with open(STREAMDECK_CONFIG, "w") as outfile:
+    with open(STREAMDECK_CONFIG_OUT, "w") as outfile:
         outfile.write(json_object)
 
 
-    print(f"Done with updating file: {STREAMDECK_CONFIG}")
+    print(f"Wrote file: {STREAMDECK_CONFIG_OUT}")
 
 if __name__ == "__main__":
      main()

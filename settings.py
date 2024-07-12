@@ -41,6 +41,7 @@ class ReadSettings():
                     print(f"{k} -> {v}")
                     data[k] = v
                 json.dump(data, outfile, indent=4)
+                return ModelConfig(**data)
         except FileNotFoundError:
             print(f"ERROR: File not found: {self.filename}")
             return False

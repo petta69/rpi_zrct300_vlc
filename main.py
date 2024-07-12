@@ -257,6 +257,7 @@ async def system_api_function(function: ModelSystem):
 @app.get("/vlc", response_class=HTMLResponse)
 async def vlc(request: Request, function: ModelVLC | None=None):
     ## If we get a function we need to execute that action. Result is used to print status.
+    config = ReadConfig()
     context = {}
     if function:
         try:
@@ -278,6 +279,7 @@ async def vlc(request: Request, function: ModelVLC | None=None):
 @app.get("/zrct300", response_class=HTMLResponse)
 async def zrct300(request: Request, function: ModelADCP | None=None):
     ## If we get a function we need to execute that action. Result is used to print status.
+    config = ReadConfig()
     context = {}
     if function:
         result = await adcp_api_function(function)
@@ -291,6 +293,7 @@ async def zrct300(request: Request, function: ModelADCP | None=None):
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
+    config = ReadConfig()
     return templates.TemplateResponse(
         request=request, name="index.html"
     )
@@ -298,6 +301,7 @@ async def home(request: Request):
 @app.get('/settings', response_class=HTMLResponse)
 async def settings(request: Request):
     ## Uses settings.json to print all valid keys and values
+    config = ReadConfig()
     settings = {}
     context = {}
     for k,v in iter(config):

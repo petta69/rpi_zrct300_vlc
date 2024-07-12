@@ -5,6 +5,8 @@ export DISPLAY=:0
 export CONTROLLER_HOME=$PWD
 cd $CONTROLLER_HOME
 
+RSYNC=/usr/bin/rsync
+
 ## First make sure system is up to date
 sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 
@@ -45,6 +47,11 @@ unzip $bootstrap_file
 bootstrap_dir=$(find -type d -name "bootstrap*")
 ln -s $bootstrap_dir bootstrap
 
+## Copy default files
+$RSYNC -av $CONTROLLER_HOME/system/install/start_controller.sh $CONTROLLER_HOME/
+$RSYNC -av $CONTROLLER_HOME/system/install/start_streamdeck.sh $CONTROLLER_HOME/
+$RSYNC -av $CONTROLLER_HOME/system/install/rpi_zrct300_vlc.service $CONTROLLER_HOME/system/
+$RSYNC -av $CONTROLLER_HOME/system/install/streamdeck.service $CONTROLLER_HOME/system/
 
 ## Define default config file for streamdeck
 export STREAMDECK_UI_CONFIG="$CONTROLLER_HOME/streamdeck_ui_export.json"
