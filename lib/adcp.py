@@ -245,3 +245,7 @@ class adcp:
         command = 'aspect "native"'
         return self._send_command(command=command)
 
+
+    def send_Status(self):
+        command = 'warning ?'
+        return self._send_command(command=command)

@@ -4,20 +4,63 @@
     <!-- <meta http-equiv="refresh" content="5"> -->
     <h1>{% block title %} VLC Controller {% endblock %}</h1>
 
-    <a href="?vlcPlayDefaultList" type="button" class="btn btn-primary">PlayDefaultList</a>
-    <a href="?vlcPlay" type="button" class="btn btn-primary">Play</a>
-    <a href="?vlcPause" type="button" class="btn btn-primary">Pause</a>
-    <br><br><br>
-    <a href="?vlcPrev" type="button" class="btn btn-primary">Prev</a>
-    <a href="?vlcNext" type="button" class="btn btn-primary">Next</a>
-    <br><br><br>
-    <a href="?vlcHelp" type="button" class="btn btn-primary">Help</a>
-    <a href="?vlcInfo" type="button" class="btn btn-primary">Info</a>
-    <a href="?vlcTitle" type="button" class="btn btn-primary">Title</a>
-    <a href="?vlcPlaylist" type="button" class="btn btn-primary">Playlist</a>
-    <a href="?vlcStatus" type="button" class="btn btn-primary">Status</a>
+    <div class="container">
+        <a href="?function=PlayDefaultPlaylist" type="button" class="btn btn-primary">SONY</a>
+        <a href="?function=PlayCustomPlaylist" type="button" class="btn btn-primary">USB</a>
+        <br><br><br>
 
-    <h3>Is init: {{ vlc }}<h3></h3>
+        <a href="?function=Pause" type="button" class="btn btn-primary">Pause</a>
+        <a href="?function=Prev" type="button" class="btn btn-primary">Prev</a>
+        <a href="?function=Next" type="button" class="btn btn-primary">Next</a>
+        <br><br><br>
+        <a href="?function=RestartVLC" type="button" class="btn btn-primary">Restart VLC</a>
+        <br><br><br>
+        <a href="?function=Info" type="button" class="btn btn-primary">Info</a>
+        <a href="?function=Status" type="button" class="btn btn-primary">Status</a>
+    </div>
+    <div class="container">
+        {% if function %}
+            <div id="function-text">Status: {{ function }}</div>
+
+            <script>
+                setTimeout(function () {
+                    document.getElementById('function-text').style.display = 'none'
+                }, 5000)
+            </script>
+        
+        {% endif %}
+
+        {% if status %}
+            <div id="status-list-text">
+                {% for list_value in status %}
+                    {{ list_value }}<br>
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function() {
+                    // location.reload()
+                    document.getElementById('status-list-text').style.display = 'none'
+                }, 5000)
+            </script>
+        {% endif %}
+
+        {% if info %}
+            <div id="info-list-text">
+                {% for list_value in info %}
+                    {{ list_value }}<br>
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('info-list-text').style.display = 'none'
+                    // location.reload()
+                }, 5000)
+            </script>
+        {% endif %}
+
+
+    </div>
+
 
 
 {% endblock %}

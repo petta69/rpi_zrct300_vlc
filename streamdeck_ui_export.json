@@ -81,13 +81,13 @@
                     },
                     "12": {},
                     "13": {
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null",
-                        "text": "Peset1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/SDR -o /dev/null",
+                        "text": "SDR",
                         "icon": "icons/adcp/sdr.png"
                     },
                     "14": {
-                        "text": "Preset2",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null",
+                        "text": "HDR",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/HDR -o /dev/null",
                         "icon": "icons/adcp/hdr.png"
                     }
                 },
@@ -143,13 +143,13 @@
                         "icon": "icons/adcp/dp12.png"
                     },
                     "10": {
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null",
-                        "text": "Peset1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/SDR -o /dev/null",
+                        "text": "SDR",
                         "icon": "icons/adcp/sdr.png"
                     },
                     "11": {
-                        "text": "Preset2",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null",
+                        "text": "HDR",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/HDR -o /dev/null",
                         "icon": "icons/adcp/hdr.png"
                     },
                     "12": {
@@ -211,10 +211,26 @@
                     }
                 },
                 "4": {
-                    "0": {},
-                    "1": {},
-                    "2": {},
-                    "3": {},
+                    "0": {
+                        "text": "Preset1",
+                        "icon": "icons/adcp/s1.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset1 -o /dev/null"
+                    },
+                    "1": {
+                        "text": "Preset2",
+                        "icon": "icons/adcp/s2.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset2 -o /dev/null"
+                    },
+                    "2": {
+                        "text": "Preset3",
+                        "icon": "icons/adcp/s3.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset3 -o /dev/null"
+                    },
+                    "3": {
+                        "text": "Preset4",
+                        "icon": "icons/adcp/s4.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/Preset4 -o /dev/null"
+                    },
                     "4": {
                         "text": "Home",
                         "icon": "icons/adcp/home.png",
@@ -414,7 +430,7 @@
                     }
                 }
             },
-            "page": 1,
+            "page": 3,
             "brightness": 99,
             "brightness_dimmed": 42,
             "display_timeout": 10

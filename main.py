@@ -37,6 +37,9 @@ class ModelVLC(str, Enum):
      PlayDefaultPlaylist = "PlayDefaultPlaylist"
      PlayCustomPlaylist = "PlayCustomPlaylist"
      RestartVLC = "RestartVLC"
+     Info = "Info"
+     Status = "Status"
+     Get_Title = "Get_Title"
 
 class ModelADCP(str, Enum):
      '''
@@ -77,6 +80,7 @@ class ModelADCP(str, Enum):
      WideModeZoom = "WideModeZoom"
      WideModeStretch = "WideModeStretch"
      WideModeNative = "WideModeNative"
+     Status = "Status"
 
 
 class ModelVISCA(str, Enum):
@@ -102,6 +106,7 @@ class ModelSystem(str, Enum):
 @app.get("/api/vlc/{function}")
 async def vlc_api_function(function: ModelVLC):
     try:
+        config = ReadConfig()
         vlc_player = player()
     except:
         start_vlc()
@@ -122,12 +127,17 @@ async def vlc_api_function(function: ModelVLC):
         restart_vlc()
     elif function is ModelVLC.Pause:
         vlc_player.pause()
+    elif function is ModelVLC.Info:
+        return vlc_player.info()
+    elif function is ModelVLC.Status:
+        return vlc_player.status()
     return {"Function": function} 
 
 @app.get("/api/adcp/{function}")
 async def adcp_api_function(function: ModelADCP):
     result = False
     try:
+        config = ReadConfig()
         adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
     except:
         return {"ERROR": "Could not connect to host"}
@@ -173,6 +183,8 @@ async def adcp_api_function(function: ModelADCP):
         result = adcp_controller.send_PictureMuteOn()
     elif function is ModelADCP.PictureMuteOff:
         result = adcp_controller.send_PictureMuteOff()
+    elif function is ModelADCP.SDR:
+        result = adcp_controller.send_SDR()
     elif function is ModelADCP.HDR:
         result = adcp_controller.send_HDR()
     elif function is ModelADCP.RealityCreationOn:
@@ -199,12 +211,16 @@ async def adcp_api_function(function: ModelADCP):
         result = adcp_controller.send_WideModeStretch()
     elif function is ModelADCP.WideModeNative:
         result = adcp_controller.send_WideModeNative()
+    elif function is ModelADCP.Status:
+        result = adcp_controller.send_Status()
     
+
     return result
 
 @app.get("/api/visca/{function}")
 async def visca_api_function(function: ModelVISCA):
     try:
+        config = ReadConfig()
         visca_controller = Camera(ip=config.visca_host, port=config.visca_port, verbose=config.verbose)
     except:
         return {"ERROR": "Could not connect to host"}
@@ -239,9 +255,24 @@ async def system_api_function(function: ModelSystem):
 
 ## TemplateResponse
 @app.get("/vlc", response_class=HTMLResponse)
-async def vlc(request: Request):
+async def vlc(request: Request, function: ModelVLC | None=None):
+    ## If we get a function we need to execute that action. Result is used to print status.
+    context = {}
+    if function:
+        try:
+            result = await vlc_api_function(function)
+            ## Create context to pass to bootstrap
+            if function is ModelVLC.Status:
+                context["status"] = result
+            elif function is ModelVLC.Info:
+                context["info"] = result
+            else:
+                context["function"] = result
+        except:
+            context["status"] = {"Error connecting to VLC"}
+
     return templates.TemplateResponse(
-        request=request, name="vlc.html"
+        request=request, name="vlc.html", context=context
     )
 
 @app.get("/zrct300", response_class=HTMLResponse)
