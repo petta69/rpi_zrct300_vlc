@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} SRG Camera {% endblock %}</h1>
+
+    <div class="container">
+        <a href="?function=AutoFramingStart" type="button" class="btn btn-primary">AutoFraming ON</a>
+        <a href="?function=AutoFramingStop" type="button" class="btn btn-primary">AutoFraming OFF</a>
+        <br><br><br>
+        <a href="?function=Preset1" type="button" class="btn btn-primary">Preset1</a>
+        <a href="?function=Preset2" type="button" class="btn btn-primary">Preset2</a>
+        <a href="?function=Preset3" type="button" class="btn btn-primary">Preset3</a>
+        <br><br><br>
+        <a href="?function=SystemInfo" type="button" class="btn btn-primary">System Info</a>
+    </div>
+    <div class="container">
+        {% if function %}
+            <div id="function-text">Status: {{ function }}</div>
+
+            <script>
+                setTimeout(function () {
+                    document.getElementById('function-text').style.display = 'none'
+                }, 5000)
+            </script>
+        
+        {% endif %}
+
+        {% if status %}
+            <div id="status-list-text">
+                {% for list_value in status %}
+                    {{ list_value }}<br>
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function() {
+                    // location.reload()
+                    document.getElementById('status-list-text').style.display = 'none'
+                }, 5000)
+            </script>
+        {% endif %}
+
+        {% if info %}
+            <div id="systeminfo-list-text">
+                {% for list_value in info %}
+                    {{ list_value }}<br>
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('systeminfo-list-text').style.display = 'none'
+                    // location.reload()
+                }, 5000)
+            </script>
+        {% endif %}
+
+
+    </div>
+
+    {% endblock %}

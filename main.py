@@ -14,6 +14,7 @@ from lib.video_player import player
 from lib.start_vlc import restart_vlc, start_vlc
 from lib.adcp import adcp
 from lib.camera import Camera
+from lib.srg_cgi import srg_cgi
 from lib.system import reboot_rpi
 
 config = ReadConfig()
@@ -83,7 +84,7 @@ class ModelADCP(str, Enum):
      Status = "Status"
 
 
-class ModelVISCA(str, Enum):
+class ModelSRGCGI(str, Enum):
     '''
     Valid functions for the visca class
     '''
@@ -214,32 +215,39 @@ async def adcp_api_function(function: ModelADCP):
     elif function is ModelADCP.Status:
         result = adcp_controller.send_Status()
     
-
     return result
 
-@app.get("/api/visca/{function}")
-async def visca_api_function(function: ModelVISCA):
+@app.get("/api/srgcgi/{function}")
+async def srgcgi_api_function(function: ModelSRGCGI):
+    result = []
     try:
         config = ReadConfig()
-        visca_controller = Camera(ip=config.visca_host, port=config.visca_port, verbose=config.verbose)
+        srgcgi_controller = srg_cgi(user=config.srgcgi_username, password=config.srgcgi_password, host_ip=config.srgcgi_host, port=config.srgcgi_port, verbose=config.verbose)
     except:
         return {"ERROR": "Could not connect to host"}
-    if function is ModelVISCA.AutoFramingStart:
-        visca_controller.autoframing_start()
-    elif function is ModelVISCA.AutoFramingStop:
-        visca_controller.autoframing_stop()
-    elif function is ModelVISCA.Preset1:
-        visca_controller.recall_preset1()
-    elif function is ModelVISCA.Preset2:
-        visca_controller.recall_preset2()
-    elif function is ModelVISCA.Preset3:
-        visca_controller.recall_preset3()
-    elif function is ModelVISCA.Preset4:
-        visca_controller.recall_preset4()
-    elif function is ModelVISCA.Preset5:
-        visca_controller.recall_preset5()
-    elif function is ModelVISCA.Preset6:
-        visca_controller.recall_preset6()
+    if function is ModelSRGCGI.AutoFramingStart:
+        result.append(srgcgi_controller.srg_start_autoframing())
+    elif function is ModelSRGCGI.AutoFramingStop:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+    elif function is ModelSRGCGI.Preset1:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+        result.append(srgcgi_controller.srg_recall_preset(presetpos=1))
+    elif function is ModelSRGCGI.Preset2:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+        result.append(srgcgi_controller.srg_recall_preset(presetpos=2))
+    elif function is ModelSRGCGI.Preset3:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+        result.append(srgcgi_controller.srg_recall_preset(presetpos=3))
+    elif function is ModelSRGCGI.Preset4:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+        result.append(srgcgi_controller.srg_recall_preset(presetpos=4))
+    elif function is ModelSRGCGI.Preset5:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+        result.append(srgcgi_controller.srg_recall_preset(presetpos=5))
+    elif function is ModelSRGCGI.Preset6:
+        result.append(srgcgi_controller.srg_stop_autoframing())
+        result.append(srgcgi_controller.srg_recall_preset(presetpos=6))
+    return result
 
 
 @app.get("/api/system/{function}")
@@ -254,6 +262,13 @@ async def system_api_function(function: ModelSystem):
 
 
 ## TemplateResponse
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    config = ReadConfig()
+    return templates.TemplateResponse(
+        request=request, name="index.html"
+    )
+
 @app.get("/vlc", response_class=HTMLResponse)
 async def vlc(request: Request, function: ModelVLC | None=None):
     ## If we get a function we need to execute that action. Result is used to print status.
@@ -290,12 +305,18 @@ async def zrct300(request: Request, function: ModelADCP | None=None):
         request=request, name="zrct300.html", context=context
     )
 
-
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
+@app.get("/srg", response_class=HTMLResponse)
+async def srg(request: Request, function: ModelSRGCGI | None=None):
+    ## If we get a function we need to execute that action. Result is used to print status.
     config = ReadConfig()
+    context = {}
+    if function:
+        result = await srgcgi_api_function(function)
+        ## Create context to pass to bootstrap
+        context["status"] = result
+
     return templates.TemplateResponse(
-        request=request, name="index.html"
+        request=request, name="srg.html", context=context
     )
 
 @app.get('/settings', response_class=HTMLResponse)
@@ -320,8 +341,10 @@ async def settings_update(request: Request,
                           adcp_host: str = Form(config.adcp_host),
                           adcp_port: int = Form(config.adcp_port),
                           adcp_password: str = Form(config.adcp_password),
-                          visca_host: str = Form(config.visca_host),
-                          visca_port: int = Form(config.visca_port),
+                          srgcgi_host: str = Form(config.srgcgi_host),
+                          srgcgi_port: int = Form(config.srgcgi_port),
+                          srgcgi_username: str = Form(config.srgcgi_username),
+                          srgcgi_password: str = Form(config.srgcgi_password),
                           verbose: int = Form(config.verbose)):
     ## After pressing submit we need to save dict to settings.json
     data = {
@@ -330,8 +353,10 @@ async def settings_update(request: Request,
         'adcp_host': adcp_host,
         'adcp_port': adcp_port,
         'adcp_password': adcp_password,
-        'visca_host': visca_host,
-        'visca_port': visca_port,
+        'srgcgi_host': srgcgi_host,
+        'srgcgi_port': srgcgi_port,
+        'srgcgi_username': srgcgi_username,
+        'srgcgi_password': srgcgi_password,
         'verbose': verbose
     }
     data_config = ModelConfig(**data)

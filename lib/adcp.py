@@ -76,7 +76,7 @@ class adcp:
             self.logger.debug(f"Response: {response}")
         except:
             response = []
-        return {"Response": response}
+        return {"Sending": command, "Response": response}
         
     def _receive_response(self) -> Optional[dict]:
         response_payload = ""
