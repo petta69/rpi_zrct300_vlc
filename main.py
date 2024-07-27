@@ -96,6 +96,7 @@ class ModelSRGCGI(str, Enum):
     Preset4 = "Preset4"
     Preset5 = "Preset5"
     Preset6 = "Preset6"
+    System = "System"
 
 class ModelSystem(str, Enum):
     '''
@@ -247,6 +248,8 @@ async def srgcgi_api_function(function: ModelSRGCGI):
     elif function is ModelSRGCGI.Preset6:
         result.append(srgcgi_controller.srg_stop_autoframing())
         result.append(srgcgi_controller.srg_recall_preset(presetpos=6))
+    elif function is ModelSRGCGI.System:
+        result.append(srgcgi_controller.srg_inq_system())
     return result
 
 

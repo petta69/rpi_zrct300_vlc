@@ -83,6 +83,11 @@ class srg_cgi:
         parameter = 'inqjs=project'
         return self._send_inq_command(cgi, parameter)
 
+    def srg_inq_system(self):
+        cgi = 'inquiry.cgi'
+        parameter = 'inqjs=system'
+        return self._send_inq_command(cgi, parameter)
+
 
 def main():
     camera = srg_cgi(host_ip='192.168.111.148', user='admin', password='Sony1234!')
