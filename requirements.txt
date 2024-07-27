@@ -3,7 +3,9 @@ anyio==4.3.0
 blinker==1.7.0
 cairocffi==1.6.1
 CairoSVG==2.7.1
+certifi==2024.7.4
 cffi==1.16.0
+charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
 cssselect2==0.7.0
@@ -31,8 +33,10 @@ pynput==1.7.6
 PySide6==6.6.2
 PySide6_Addons==6.6.2
 PySide6_Essentials==6.6.2
+python-multipart==0.0.9
 python-xlib==0.33
 pyusb==1.2.1
+requests==2.32.3
 rich==13.7.0
 shellingham==1.5.4
 shiboken6==6.6.2
@@ -44,5 +48,6 @@ streamdeck-ui==2.0.15
 tinycss2==1.2.1
 typer==0.9.0
 typing_extensions==4.9.0
+urllib3==2.2.2
 uvicorn==0.28.0
 webencodings==0.5.1
