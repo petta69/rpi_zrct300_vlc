@@ -36,6 +36,9 @@ class ModelVLC(str, Enum):
      Prev = "Prev"
      Pause = "Pause"
      PlayDefaultPlaylist = "PlayDefaultPlaylist"
+     PlayDesignPlaylist = "PlayDesignPlaylist"
+     PlayCorporatePlaylist = "PlayCorporatePlaylist"
+     PlayRetailPlaylist = "PlayRetailPlaylist"
      PlayCustomPlaylist = "PlayCustomPlaylist"
      RestartVLC = "RestartVLC"
      Info = "Info"
@@ -116,6 +119,18 @@ async def vlc_api_function(function: ModelVLC):
     if function is ModelVLC.PlayDefaultPlaylist:
         restart_vlc()
         playlist = vlc_player.play_default_list(config.vlc_default_videodir)
+        return {"Playlist": playlist}
+    elif function is ModelVLC.PlayDesignPlaylist:
+        restart_vlc()
+        playlist = vlc_player.play_design_list(config.vlc_default_videodir)
+        return {"Playlist": playlist}
+    elif function is ModelVLC.PlayCorporatePlaylist:
+        restart_vlc()
+        playlist = vlc_player.play_corporate_list(config.vlc_default_videodir)
+        return {"Playlist": playlist}
+    elif function is ModelVLC.PlayRetailPlaylist:
+        restart_vlc()
+        playlist = vlc_player.play_retail_list(config.vlc_default_videodir)
         return {"Playlist": playlist}
     elif function is ModelVLC.PlayCustomPlaylist:
         restart_vlc()

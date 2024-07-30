@@ -57,29 +57,37 @@
                         "switch_page": 1
                     },
                     "5": {
+                        "text": "Design",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayDesignPlaylist -o /dev/null",
+                        "icon": "icons/vlc_folder.png"
+                    },
+                    "6": {
+                        "text": "Corporate",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayCorporatePlaylist -o /dev/null",
+                        "icon": "icons/vlc_folder.png"
+                    },
+                    "7": {
+                        "text": "Retail",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayRetailPlaylist -o /dev/null",
+                        "icon": "icons/vlc_folder.png"
+                    },
+                    "8": {},
+                    "9": {},
+                    "10": {
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Pause -o /dev/null",
                         "text": "Pause",
                         "icon": "icons/vlc_pause.png"
                     },
-                    "6": {
-                        "text": "",
-                        "command": "",
-                        "icon": ""
-                    },
-                    "7": {},
-                    "8": {},
-                    "9": {},
-                    "10": {
+                    "11": {
                         "text": "Previous",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Prev -o /dev/null",
                         "icon": "icons/vlc_prev.png"
                     },
-                    "11": {
+                    "12": {
                         "text": "Next",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Next -o /dev/null",
                         "icon": "icons/vlc_next.png"
                     },
-                    "12": {},
                     "13": {
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/SDR -o /dev/null",
                         "text": "SDR",

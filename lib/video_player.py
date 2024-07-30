@@ -29,6 +29,45 @@ class player():
         self.req(f"add {self.media_dir}")
         print(f"Start Playing from: {self.media_dir}")
         return self.media_dir
+    
+    def play_design_list(self, media_dir):
+        self.media_dir = media_dir
+        self.media_playlist = f'{self.media_dir}/design.m3u'
+        if os.path.isfile(self.media_playlist):
+            self.req("clear") ## Clears the playlist
+            self.req("loop on")
+            self.req("random on")
+            self.req(f"add {self.media_playlist}")
+            print(f"Start Playing: {self.media_playlist}")
+            return self.media_playlist
+        else:
+            return "Error: Design directory does not exist"
+    
+    def play_corporate_list(self, media_dir):
+        self.media_dir = media_dir
+        self.media_playlist = f'{self.media_dir}/corporate.m3u'
+        if os.path.isfile(self.media_playlist):
+            self.req("clear") ## Clears the playlist
+            self.req("loop on")
+            self.req("random on")
+            self.req(f"add {self.media_playlist}")
+            print(f"Start Playing: {self.media_playlist}")
+            return self.media_playlist
+        else:
+            return "Error: Corporate directory does not exist"
+    
+    def play_retail_list(self, media_dir):
+        self.media_dir = media_dir
+        self.media_playlist = f'{self.media_dir}/retail.m3u'
+        if os.path.isfile(self.media_playlist):
+            self.req("clear") ## Clears the playlist
+            self.req("loop on")
+            self.req("random on")
+            self.req(f"add {self.media_playlist}")
+            print(f"Start Playing: {self.media_playlist}")
+            return self.media_playlist
+        else:
+            return "Error: Retail directory does not exist"
 
     def play_custom_list(self, custom_dirname):
         custom_dirname = custom_dirname
@@ -165,29 +204,7 @@ class player():
                 return response_list
         except:
             return None
-            pass
 
-    # def thrededreq(self, msg):
-    #     Thread(target=self.req, args=(msg,)).start()
-
-
-# def find_usb_media_dir2(custom_usb_videodir):
-#     import subprocess
-
-#     # Command to execute
-#     command = ["sudo", "/usr/bin/find", "/media", "-maxdepth", "3", "-mindepth", "2", "-type", "d", "-name", custom_usb_videodir]
-
-#     # Execute the command
-#     result = subprocess.run(command, capture_output=True, text=True)
-#     print(f"QWE: {result}")
-
-#     # Check the result
-#     if result.returncode == 0:
-#         paths = result.stdout.split()
-#         return paths[-1]
-#     else:
-#         print("Error:", result.stderr)
-#         return False
  
 def find_usb_media_dir(custom_usb_videodir, mindepth=2, maxdepth=3):
     start_dir = '/media'
