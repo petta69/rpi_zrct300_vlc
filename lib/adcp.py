@@ -247,5 +247,9 @@ class adcp:
 
 
     def send_Status(self):
+        response = []
         command = 'warning ?'
-        return self._send_command(command=command)
+        response.append(self._send_command(command=command))
+        command = 'power_status ?'
+        response.append(self._send_command(command=command))
+        return response
