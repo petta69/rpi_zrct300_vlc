@@ -152,84 +152,84 @@ async def vlc_api_function(function: ModelVLC):
 
 @app.get("/api/adcp/{function}")
 async def adcp_api_function(function: ModelADCP):
-    result = False
+    result = []
     try:
         config = ReadConfig()
         adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
     except:
         return {"ERROR": "Could not connect to host"}
     if function is ModelADCP.PowerOn:
-        result = adcp_controller.send_power_on()
+        result.append(adcp_controller.send_power_on())
     elif function is ModelADCP.PowerOff:
-        result = adcp_controller.send_power_off()
+        result.append(adcp_controller.send_power_off())
     elif function is ModelADCP.Preset1:
-        result = adcp_controller.send_preset1()
+        result.append(adcp_controller.send_preset1())
     elif function is ModelADCP.Preset2:
-        result = adcp_controller.send_preset2()
+        result.append(adcp_controller.send_preset2())
     elif function is ModelADCP.Preset3:
-        result = adcp_controller.send_preset3()
+        result.append(adcp_controller.send_preset3())
     elif function is ModelADCP.Preset4:
-        result = adcp_controller.send_preset4()
+        result.append(adcp_controller.send_preset4())
     elif function is ModelADCP.Preset5:
-        result = adcp_controller.send_preset5()
+        result.append(adcp_controller.send_preset5())
     elif function is ModelADCP.Preset6:
-        result = adcp_controller.send_preset6()
+        result.append(adcp_controller.send_preset6())
     elif function is ModelADCP.LightOutput1:
-        result = adcp_controller.send_lightoutput1()
+        result.append(adcp_controller.send_lightoutput1())
     elif function is ModelADCP.LightOutput2:
-        result = adcp_controller.send_lightoutput2()
+        result.append(adcp_controller.send_lightoutput2())
     elif function is ModelADCP.LightOutput3:
-        result = adcp_controller.send_lightoutput3()
+        result.append(adcp_controller.send_lightoutput3())
     elif function is ModelADCP.LightOutput4:
-        result = adcp_controller.send_lightoutput4()
+        result.append(adcp_controller.send_lightoutput4())
     elif function is ModelADCP.LightOutput5:
-        result = adcp_controller.send_lightoutput5()
+        result.append(adcp_controller.send_lightoutput5())
     elif function is ModelADCP.LightOutput6:
-        result = adcp_controller.send_lightoutput6()
+        result.append(adcp_controller.send_lightoutput6())
     elif function is ModelADCP.InputDP1:
-        result = adcp_controller.send_inputDP1()
+        result.append(adcp_controller.send_inputDP1())
     elif function is ModelADCP.InputDP2:
-        result = adcp_controller.send_inputDP2()
+        result.append(adcp_controller.send_inputDP2())
     elif function is ModelADCP.InputDP12:
-        result = adcp_controller.send_inputDP12()
+        result.append(adcp_controller.send_inputDP12())
     elif function is ModelADCP.InputHDMI1:
-        result = adcp_controller.send_inputHDMI1()
+        result.append(adcp_controller.send_inputHDMI1())
     elif function is ModelADCP.InputHDMI2:
-        result = adcp_controller.send_inputHDMI2()
+        result.append(adcp_controller.send_inputHDMI2())
     elif function is ModelADCP.PictureMuteOn:
-        result = adcp_controller.send_PictureMuteOn()
+        result.append(adcp_controller.send_PictureMuteOn())
     elif function is ModelADCP.PictureMuteOff:
-        result = adcp_controller.send_PictureMuteOff()
+        result.append(adcp_controller.send_PictureMuteOff())
     elif function is ModelADCP.SDR:
-        result = adcp_controller.send_SDR()
+        result.append(adcp_controller.send_SDR())
     elif function is ModelADCP.HDR:
-        result = adcp_controller.send_HDR()
+        result.append(adcp_controller.send_HDR())
     elif function is ModelADCP.RealityCreationOn:
-        result = adcp_controller.send_RealitycreationOn()
+        result.append(adcp_controller.send_RealitycreationOn())
     elif function is ModelADCP.RealityCreationOff:
-        result = adcp_controller.send_RealityCreationOff()
+        result.append(adcp_controller.send_RealityCreationOff())
     elif function is ModelADCP.MotionFlowOff:
-        result = adcp_controller.send_MotionFlowOff()
+        result.append(adcp_controller.send_MotionFlowOff())
     elif function is ModelADCP.MotionFlow1:
-        result = adcp_controller.send_MotionFlow1()
+        result.append(adcp_controller.send_MotionFlow1())
     elif function is ModelADCP.MotionFlow2:
-        result = adcp_controller.send_MotionFlow2()
+        result.append(adcp_controller.send_MotionFlow2())
     elif function is ModelADCP.MotionFlow3:
-        result = adcp_controller.send_MotionFlow3()
+        result.append(adcp_controller.send_MotionFlow3())
     elif function is ModelADCP.MotionFlow4:
-        result = adcp_controller.send_MotionFlow4()
+        result.append(adcp_controller.send_MotionFlow4())
     elif function is ModelADCP.WideModeNormal:
-        result = adcp_controller.send_WideModeNormal()
+        result.append(adcp_controller.send_WideModeNormal())
     elif function is ModelADCP.WideModeFull:
-        result = adcp_controller.send_WideModeFull()
+        result.append(adcp_controller.send_WideModeFull())
     elif function is ModelADCP.WideModeZoom:
-        result = adcp_controller.send_WideModeZoom()
+        result.append(adcp_controller.send_WideModeZoom())
     elif function is ModelADCP.WideModeStretch:
-        result = adcp_controller.send_WideModeStretch()
+        result.append(adcp_controller.send_WideModeStretch())
     elif function is ModelADCP.WideModeNative:
-        result = adcp_controller.send_WideModeNative()
+        result.append(adcp_controller.send_WideModeNative())
     elif function is ModelADCP.Status:
-        result = adcp_controller.send_Status()
+        result.append(adcp_controller.send_Status())
     
     return result
 

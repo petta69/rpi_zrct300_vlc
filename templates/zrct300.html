@@ -51,20 +51,19 @@
 
         <div class="container">
             {% if status %}
-                <div id="status-text">Status: {{ status }}</div>
-                {% for list_value in status %}
-                    {{ list_value }}<br>
-                {% endfor %}
+                <div id="status-list-text">
+                    {% for list_value in status %}
+                        {{ list_value }}<br>
+                    {% endfor %}
+                </div>
+                <script>
+                    setTimeout(function() {
+                        // location.reload()
+                        document.getElementById('status-list-text').style.display = 'none'
+                    }, 5000)
+                </script>
             {% endif %}
-        </div>
-
-
-        <script>
-            setTimeout(function () {
-                document.getElementById('status-text').style.display = 'none'
-            }, 5000)
-        </script>
-    
+        </div>    
 
     </body>
 {% endblock %}
