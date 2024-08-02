@@ -16,6 +16,7 @@ from lib.adcp import adcp
 from lib.camera import Camera
 from lib.srg_cgi import srg_cgi
 from lib.system import reboot_rpi
+from logger.logger import Logger
 
 config = ReadConfig()
 
@@ -25,6 +26,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/images", StaticFiles(directory="images"), name="images")
 templates = Jinja2Templates(directory="templates")
 
+logger = Logger(name=__name__, level=config.verbose).get_logger()
 
 class ModelVLC(str, Enum):
      '''
@@ -230,7 +232,7 @@ async def adcp_api_function(function: ModelADCP):
         result.append(adcp_controller.send_WideModeNative())
     elif function is ModelADCP.Status:
         result.append(adcp_controller.send_Status())
-    
+    logger.debug(f'result: {result}')
     return result
 
 @app.get("/api/srgcgi/{function}")
