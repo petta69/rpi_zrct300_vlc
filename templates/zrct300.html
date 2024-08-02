@@ -52,6 +52,9 @@
         <div class="container">
             {% if status %}
                 <div id="status-text">Status: {{ status }}</div>
+                {% for list_value in status %}
+                    {{ list_value }}<br>
+                {% endfor %}
             {% endif %}
         </div>
 
