@@ -231,7 +231,10 @@ async def adcp_api_function(function: ModelADCP):
     elif function is ModelADCP.WideModeNative:
         result.append(adcp_controller.send_WideModeNative())
     elif function is ModelADCP.Status:
-        result.append(adcp_controller.send_Status())
+        ## This function returns a list
+        response = adcp_controller.send_Status()
+        for item in response:
+            result.append(item)
     logger.debug(f'result: {result}')
     return result
 
