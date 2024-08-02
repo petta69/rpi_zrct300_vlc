@@ -248,6 +248,8 @@ class adcp:
 
     def send_Status(self):
         response = []
+        command = 'error ?'
+        response.append(self._send_command(command=command))
         command = 'warning ?'
         response.append(self._send_command(command=command))
         command = 'power_status ?'
