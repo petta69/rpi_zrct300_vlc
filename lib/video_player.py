@@ -30,39 +30,42 @@ class player():
         print(f"Start Playing from: {self.media_dir}")
         return self.media_dir
     
-    def play_design_list(self, media_dir):
+    def play_design_list(self, media_dir, random=False):
         self.media_dir = media_dir
         self.media_playlist = f'{self.media_dir}/design.m3u'
         if os.path.isfile(self.media_playlist):
             self.req("clear") ## Clears the playlist
             self.req("loop on")
-            self.req("random on")
+            if random:
+                self.req("random on")
             self.req(f"add {self.media_playlist}")
             print(f"Start Playing: {self.media_playlist}")
             return self.media_playlist
         else:
             return "Error: Design directory does not exist"
     
-    def play_corporate_list(self, media_dir):
+    def play_corporate_list(self, media_dir, random=False):
         self.media_dir = media_dir
         self.media_playlist = f'{self.media_dir}/corporate.m3u'
         if os.path.isfile(self.media_playlist):
             self.req("clear") ## Clears the playlist
             self.req("loop on")
-            self.req("random on")
+            if random:
+                self.req("random on")
             self.req(f"add {self.media_playlist}")
             print(f"Start Playing: {self.media_playlist}")
             return self.media_playlist
         else:
             return "Error: Corporate directory does not exist"
     
-    def play_retail_list(self, media_dir):
+    def play_retail_list(self, media_dir, random=False):
         self.media_dir = media_dir
         self.media_playlist = f'{self.media_dir}/retail.m3u'
         if os.path.isfile(self.media_playlist):
             self.req("clear") ## Clears the playlist
             self.req("loop on")
-            self.req("random on")
+            if random:
+                self.req("random on")
             self.req(f"add {self.media_playlist}")
             print(f"Start Playing: {self.media_playlist}")
             return self.media_playlist
