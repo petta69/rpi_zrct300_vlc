@@ -190,12 +190,36 @@ class adcp:
         return self._send_command(command=command)
 
     def send_HDR(self):
+        response = []
         command = 'hdr "st2084_sim"'
-        return self._send_command(command=command)
+        response.append(self._send_command(command=command))
+        command = 'color_space "custom5"'
+        response.append(self._send_command(command=command))
+        command = 'hdr_auto_mode "off"'
+        response.append(self._send_command(command=command))
+
+        return response
 
     def send_SDR(self):
+        response = []
         command = 'hdr "off"'
-        return self._send_command(command=command)
+        response.append(self._send_command(command=command))
+        command = 'color_space "custom1"'
+        response.append(self._send_command(command=command))
+        command = 'hdr_auto_mode "off"'
+        response.append(self._send_command(command=command))
+
+        return response
+    
+    def send_HDR_Auto(self):
+        response = []
+        command = 'color_space "auto"'
+        response.append(self._send_command(command=command))
+        command = 'hdr_auto_mode "on"'
+        response.append(self._send_command(command=command))
+
+        return response
+            
 
     def send_RealitycreationOn(self):
         command = 'real_cre "on"'

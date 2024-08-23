@@ -74,6 +74,7 @@ class ModelADCP(str, Enum):
      PictureMuteOff = "PictureMuteOff"
      HDR = "HDR"
      SDR = "SDR"
+     HDRAuto = "HDRAuto"
      MotionFlowOff = "MotionFlowOff"
      MotionFlow1 = "MotionFlow1"
      MotionFlow2 = "MotionFlow2"
@@ -206,6 +207,8 @@ async def adcp_api_function(function: ModelADCP):
         result.append(adcp_controller.send_SDR())
     elif function is ModelADCP.HDR:
         result.append(adcp_controller.send_HDR())
+    elif function is ModelADCP.HDRAuto:
+        result.append(adcp_controller.send_HDR_Auto())
     elif function is ModelADCP.RealityCreationOn:
         result.append(adcp_controller.send_RealitycreationOn())
     elif function is ModelADCP.RealityCreationOff:

@@ -71,7 +71,11 @@
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/PlayRetailPlaylist -o /dev/null",
                         "icon": "icons/vlc_folder.png"
                     },
-                    "8": {},
+                    "8": {
+                        "text": "HDR Auto",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/HDRAuto -o /dev/null",
+                        "icon": "icons/adcp/hdr_auto.png"
+                    },
                     "9": {},
                     "10": {
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/vlc/Pause -o /dev/null",

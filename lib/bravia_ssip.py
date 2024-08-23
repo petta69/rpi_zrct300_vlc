@@ -95,4 +95,16 @@ class bravia_ssip:
     def get_power(self):
         command = 'POWR'
         self._send_command(command=command)
+        
+    def set_input_hdmi1(self):
+        command = 'INPT'
+        parameter = f'0000000100000001'
+        self._send_command(command=command, parameter=parameter)
 
+
+if __name__ == "__main__":
+    bravia = bravia_ssip(host_ip="192.168.111.141", verbose=5)
+    bravia.set_power_on()
+    bravia.set_input_hdmi1()
+    
+    
