@@ -22,6 +22,6 @@ cd $CONTROLLER_HOME
 ##
 ## Streamdeck
 ##
-python3 .venv/bin/streamdeck 
+python3 .venv/bin/streamdeck -n
 
 exit 0
