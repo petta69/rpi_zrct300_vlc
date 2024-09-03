@@ -92,6 +92,10 @@ systemctl --user enable rpi_zrct300_vlc
 systemctl --user start streamdeck
 systemctl --user start rpi_zrct300_vlc
 
+## Set wallpaper
+/usr/bin/pcmanfm --set-wallpaper="source/rpi_zrct300_vlc/images/SONY_WhiteOnBlack.png" --display=:0
+
+
 echo ""
 echo "INFO: Install is now complete. Please reboot and make sure everything is working as expected"
 echo ""
