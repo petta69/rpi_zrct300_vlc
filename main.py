@@ -2,6 +2,7 @@
 
 import sys
 import os
+import timeit
 
 from enum import Enum
 from fastapi import FastAPI, Request, Form
@@ -27,6 +28,10 @@ app.mount("/images", StaticFiles(directory="images"), name="images")
 templates = Jinja2Templates(directory="templates")
 
 logger = Logger(name=__name__, level=config.verbose).get_logger()
+
+flood_oldfunction = "none"
+flood_oldtime = timeit.default_timer()
+flood_timeout = 5
 
 class ModelVLC(str, Enum):
      '''
@@ -96,6 +101,7 @@ class ModelSRGCGI(str, Enum):
     '''
     AutoFramingStart = "AutoFramingStart"
     AutoFramingStop = "AutoFramingStop"
+    AutoFraming = "AutoFraming"
     Preset1 = "Preset1"
     Preset2 = "Preset2"
     Preset3 = "Preset3"
@@ -103,6 +109,12 @@ class ModelSRGCGI(str, Enum):
     Preset5 = "Preset5"
     Preset6 = "Preset6"
     System = "System"
+    RegisteredFaceTrackingStart = "RegisteredFaceTrackingStart"
+    RegisteredFaceTrackingStop = "RegisteredFaceTrackingStop"
+    MultiTrackinTargetNum1 = "MultiTrackinTargetNum1"
+    MultiTrackinTargetNum2 = "MultiTrackinTargetNum2"
+    MultiTrackinTargetNum3 = "MultiTrackinTargetNum3"
+    MultiTrackinTargetNum4 = "MultiTrackinTargetNum4"
 
 class ModelSystem(str, Enum):
     '''
@@ -110,9 +122,29 @@ class ModelSystem(str, Enum):
     '''
     Restart = "Restart"
 
+def check_flooding(flood_function):
+    global flood_oldfunction
+    global flood_oldtime
+    now = timeit.default_timer()
+    if flood_function == flood_oldfunction:
+        if now - flood_oldtime < flood_timeout:
+            flood_oldtime = now
+            return True
+        else:
+            flood_oldtime = now
+            return False
+    else:
+        flood_oldfunction = flood_function
+        flood_oldtime = now
+        return False
+    
+
+
 ## API calls
 @app.get("/api/vlc/{function}")
 async def vlc_api_function(function: ModelVLC):
+    if check_flooding(function.value):
+        return {'Error': 'Flooding'}
     try:
         config = ReadConfig()
         vlc_player = player()
@@ -156,6 +188,8 @@ async def vlc_api_function(function: ModelVLC):
 @app.get("/api/adcp/{function}")
 async def adcp_api_function(function: ModelADCP):
     result = []
+    if check_flooding(function.value):
+        return {'Error': 'Flooding'}
     try:
         config = ReadConfig()
         adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
@@ -244,6 +278,8 @@ async def adcp_api_function(function: ModelADCP):
 @app.get("/api/srgcgi/{function}")
 async def srgcgi_api_function(function: ModelSRGCGI):
     result = []
+    if check_flooding(function.value):
+        return {'Error': 'Flooding'}
     try:
         config = ReadConfig()
         srgcgi_controller = srg_cgi(user=config.srgcgi_username, password=config.srgcgi_password, host_ip=config.srgcgi_host, port=config.srgcgi_port, verbose=config.verbose)
@@ -273,12 +309,44 @@ async def srgcgi_api_function(function: ModelSRGCGI):
         result.append(srgcgi_controller.srg_recall_preset(presetpos=6))
     elif function is ModelSRGCGI.System:
         result.append(srgcgi_controller.srg_inq_system())
+    elif function is ModelSRGCGI.RegisteredFaceTrackingStart:
+        autoframing = srgcgi_controller.srg_inq_autoframing('PtzAutoFraming')
+        if 'PtzAutoFraming' in autoframing:
+            if autoframing['PtzAutoFraming'] == "on":
+                result.append(srgcgi_controller.srg_stop_autoframing())        
+                result.append(srgcgi_controller.srg_start_registeredfacetracking_autoframing())
+                result.append(srgcgi_controller.srg_start_autoframing())
+            else:
+                result.append(srgcgi_controller.srg_start_registeredfacetracking_autoframing())
+        else:
+            result.append(srgcgi_controller.srg_start_registeredfacetracking_autoframing())
+    elif function is ModelSRGCGI.RegisteredFaceTrackingStop:
+        autoframing = srgcgi_controller.srg_inq_autoframing('PtzAutoFraming')
+        if 'PtzAutoFraming' in autoframing:
+            if autoframing['PtzAutoFraming'] == "on":
+                result.append(srgcgi_controller.srg_stop_autoframing())        
+                result.append(srgcgi_controller.srg_stop_registeredfacetracking_autoframing())
+                result.append(srgcgi_controller.srg_start_autoframing())
+            else:
+                result.append(srgcgi_controller.srg_stop_registeredfacetracking_autoframing())
+        else:
+            result.append(srgcgi_controller.srg_stop_registeredfacetracking_autoframing())
+    elif function is ModelSRGCGI.MultiTrackinTargetNum1:
+        result.append(srgcgi_controller.srg_multitrackingtargetnum(1))
+    elif function is ModelSRGCGI.MultiTrackinTargetNum2:
+        result.append(srgcgi_controller.srg_multitrackingtargetnum(2))
+    elif function is ModelSRGCGI.MultiTrackinTargetNum3:
+        result.append(srgcgi_controller.srg_multitrackingtargetnum(3))
+    elif function is ModelSRGCGI.MultiTrackinTargetNum4:
+        result.append(srgcgi_controller.srg_multitrackingtargetnum(4))
     return result
 
 
 @app.get("/api/system/{function}")
 async def system_api_function(function: ModelSystem):
     if function is ModelSystem.Restart:
+        if check_flooding(function.value):
+            return {'Error': 'Flooding'}
         ## Rebooting PI5
         reboot_rpi()
 

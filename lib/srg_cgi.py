@@ -12,7 +12,15 @@ def validate_ipaddress(host_string):
     except ValueError:
         print(f'ERROR: Could not validate ip: {host_string}')
         return 0
-
+    
+def inqanswer_to_dict(inqanswer):
+    answer_list = inqanswer.split('&')
+    answer_dict = {}
+    for item in answer_list:
+        line = item.split('=')
+        answer_dict[line[0]] = line[1]
+    return answer_dict
+    
 class srg_cgi:
     def __init__(self, host_ip: str, user: str, password: str, port=80, verbose=1) -> None:
         self.logger = Logger(name=__name__, level=verbose).get_logger()
@@ -38,6 +46,7 @@ class srg_cgi:
         self.logger.info(f'Status: {r.status_code}')
         
         if r.status_code == 200:
+            self.logger.info(f'Response: {r.text}')
             return r.text
         else:
             return {'Error': r.status_code}
@@ -72,6 +81,39 @@ class srg_cgi:
         cgi = 'ptzautoframing.cgi'
         parameter = 'PtzAutoFraming=off'
         return self._send_set_command(cgi, parameter)
+
+    def srg_inq_autoframing(self, inq_parameter:str):
+        cgi = 'inquiry.cgi'
+        parameter = 'inq=PtzAutoFraming'
+        inq_dict = inqanswer_to_dict(self._send_inq_command(cgi, parameter))
+        if inq_parameter:
+            if inq_parameter in inq_dict:
+                return {inq_parameter: inq_dict[inq_parameter]}
+        else:
+            return inq_dict
+
+    def srg_start_registeredfacetracking_autoframing(self):
+        cgi = 'ptzautoframing.cgi'
+        parameter = 'PtzAutoFramingRegisteredFaceTracking=on'
+        return self._send_set_command(cgi, parameter)
+
+    def srg_stop_registeredfacetracking_autoframing(self):
+        cgi = 'ptzautoframing.cgi'
+        parameter = 'PtzAutoFramingRegisteredFaceTracking=off'
+        return self._send_set_command(cgi, parameter)
+
+    def srg_multitrackingtargetnum(self, targets):
+        response = {}
+        cgi = 'ptzautoframing.cgi'
+        if targets > 1:
+            parameter = f'PtzAutoFramingMultiTrackingTargetNum={targets}'
+            response['PtzAutoFramingMultiTrackingTargetNum'] = self._send_set_command(cgi, parameter)
+            parameter = 'PtzAutoFramingMultiTrackingEnable=on'
+        else:
+            parameter = 'PtzAutoFramingMultiTrackingEnable=off'
+        response['PtzAutoFramingMultiTrackingEnable'] = self._send_set_command(cgi, parameter)
+        return response
+
 
     def srg_recall_preset(self, presetpos):
         cgi = 'presetposition.cgi'

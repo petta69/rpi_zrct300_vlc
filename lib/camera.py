@@ -33,7 +33,7 @@ class Camera:
         self._sock.bind(('', 0))
         #self._sock.bind(('', port))
         self._port = self._sock.getsockname()[1]
-        self._sock.settimeout(0.5)
+        self._sock.settimeout(2)
 
         self.num_missed_responses = 0
         self.sequence_number = 0  # This number is encoded in each message and incremented after sending each message
