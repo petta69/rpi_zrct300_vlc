@@ -186,40 +186,58 @@
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/AutoFramingStart -o /dev/null"
                     },
                     "1": {
-                        "text": "Preset1",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset1 -o /dev/null"
+                        "text": "Framing OFF",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/AutoFramingStop -o /dev/null"
                     },
                     "2": {
-                        "text": "Preset3",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset3 -o /dev/null"
+                        "text": "FaceTrack ON",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/RegisteredFaceTrackingStart -o /dev/null"
                     },
-                    "3": {},
+                    "3": {
+                        "text": "FaceTrack OFF",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/RegisteredFaceTrackingStop -o /dev/null"
+                    },
                     "4": {
                         "text": "Home",
                         "icon": "icons/adcp/home.png",
                         "switch_page": 1
                     },
                     "5": {
-                        "text": "Framing OFF",
-                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/AutoFramingStop -o /dev/null"
+                        "text": "NumTarget 1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum1 -o /dev/null"
                     },
                     "6": {
+                        "text": "NumTarget 2",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum2 -o /dev/null"
+                    },
+                    "7": {
+                        "text": "NumTarget 3",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum3 -o /dev/null"
+                    },
+                    "8": {
+                        "text": "NumTarget 4",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum4 -o /dev/null"
+                    },
+                    "9": {},
+                    "10": {
+                        "text": "Preset1",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset1 -o /dev/null"
+                    },
+                    "11": {
                         "text": "Preset2",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset2 -o /dev/null"
                     },
-                    "7": {
+                    "12": {
+                        "text": "Preset3",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset3 -o /dev/null"
+                    },
+                    "13": {
                         "text": "Preset4",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset4 -o /dev/null"
                     },
-                    "8": {},
-                    "9": {},
-                    "10": {},
-                    "11": {},
-                    "12": {},
-                    "13": {},
                     "14": {
-                        "switch_page": 0,
-                        "text": ""
+                        "text": "Preset5",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/Preset5 -o /dev/null"
                     }
                 },
                 "4": {
