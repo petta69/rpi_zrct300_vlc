@@ -31,7 +31,6 @@ logger = Logger(name=__name__, level=config.verbose).get_logger()
 
 flood_oldfunction = "none"
 flood_oldtime = timeit.default_timer()
-flood_timeout = 5
 
 class ModelVLC(str, Enum):
      '''
@@ -122,7 +121,7 @@ class ModelSystem(str, Enum):
     '''
     Restart = "Restart"
 
-def check_flooding(flood_function):
+def check_flooding(flood_function, flood_timeout=5):
     global flood_oldfunction
     global flood_oldtime
     now = timeit.default_timer()
@@ -143,7 +142,7 @@ def check_flooding(flood_function):
 ## API calls
 @app.get("/api/vlc/{function}")
 async def vlc_api_function(function: ModelVLC):
-    if check_flooding(function.value):
+    if check_flooding(function.value, flood_timeout=1):
         return {'Error': 'Flooding'}
     try:
         config = ReadConfig()
