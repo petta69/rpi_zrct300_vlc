@@ -460,7 +460,7 @@
                     }
                 }
             },
-            "page": 3,
+            "page": 0,
             "brightness": 99,
             "brightness_dimmed": 42,
             "display_timeout": 10
