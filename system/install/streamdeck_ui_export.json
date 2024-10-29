@@ -182,19 +182,19 @@
                 },
                 "3": {
                     "0": {
-                        "text": "Framing ON",
+                        "text": "Frame ON",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/AutoFramingStart -o /dev/null"
                     },
                     "1": {
-                        "text": "Framing OFF",
+                        "text": "Frame OFF",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/AutoFramingStop -o /dev/null"
                     },
                     "2": {
-                        "text": "FaceTrack ON",
+                        "text": "Face ON",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/RegisteredFaceTrackingStart -o /dev/null"
                     },
                     "3": {
-                        "text": "FaceTrack OFF",
+                        "text": "Face OFF",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/RegisteredFaceTrackingStop -o /dev/null"
                     },
                     "4": {
@@ -203,19 +203,19 @@
                         "switch_page": 1
                     },
                     "5": {
-                        "text": "NumTarget 1",
+                        "text": "NumTrgt1",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum1 -o /dev/null"
                     },
                     "6": {
-                        "text": "NumTarget 2",
+                        "text": "NumTrgt2",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum2 -o /dev/null"
                     },
                     "7": {
-                        "text": "NumTarget 3",
+                        "text": "NumTrgt3",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum3 -o /dev/null"
                     },
                     "8": {
-                        "text": "NumTarget 4",
+                        "text": "NumTrgt4",
                         "command": "/usr/bin/curl http://127.0.0.1:5000/api/srgcgi/MultiTrackinTargetNum4 -o /dev/null"
                     },
                     "9": {},
