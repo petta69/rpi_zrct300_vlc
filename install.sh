@@ -7,6 +7,10 @@ cd $CONTROLLER_HOME
 
 RSYNC=/usr/bin/rsync
 
+## Turn off screensaver and blanking
+xset -dpms
+xset s off
+
 ## First make sure system is up to date
 sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 
@@ -95,6 +99,12 @@ systemctl --user start rpi_zrct300_vlc
 ## Set wallpaper
 /usr/bin/pcmanfm --set-wallpaper="source/rpi_zrct300_vlc/images/SONY_WhiteOnBlack.png" --display=:0
 
+## Set fixed EDID file
+if [ -f $CONTROLLER_HOME/system/install/sony_bz30l.bin ]
+then
+    sudo $RSYNC -av $CONTROLLER_HOME/system/install/sony_bz30l.bin /lib/firmware/
+    sudo sed -i '1s/^/drm.edid_firmware=HDMI-A-1:sony_bz30l.bin video=HDMI-A-1:D /' /boot/firmware/cmdline.txt
+fi
 
 echo ""
 echo "INFO: Install is now complete. Please reboot and make sure everything is working as expected"

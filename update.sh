@@ -7,6 +7,10 @@ cd $CONTROLLER_HOME
 
 RSYNC=/usr/bin/rsync
 
+## Turn off screensaver and blanking
+xset -dpms
+xset s off
+
 ## First make sure system is up to date
 sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 
