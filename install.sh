@@ -100,10 +100,16 @@ systemctl --user start rpi_zrct300_vlc
 /usr/bin/pcmanfm --set-wallpaper="source/rpi_zrct300_vlc/images/SONY_WhiteOnBlack.png" --display=:0
 
 ## Set fixed EDID file
-if [ -f $CONTROLLER_HOME/system/install/sony_bz30l.bin ]
+cmdline=$(grep 'sony' /boot/firmware/cmdline.txt)
+if [[ $cmdline != "" ]]
 then
-    sudo $RSYNC -av $CONTROLLER_HOME/system/install/sony_bz30l.bin /lib/firmware/
-    sudo sed -i '1s/^/drm.edid_firmware=HDMI-A-1:sony_bz30l.bin video=HDMI-A-1:D /' /boot/firmware/cmdline.txt
+    echo "INFO: Already have edid in place"
+else
+    if [ -f $CONTROLLER_HOME/system/install/sony_bz30l.bin ]
+    then
+        sudo $RSYNC -av $CONTROLLER_HOME/system/install/sony_bz30l.bin /lib/firmware/
+        sudo sed -i '1s/^/drm.edid_firmware=HDMI-A-1:sony_bz30l.bin video=HDMI-A-1:D /' /boot/firmware/cmdline.txt
+    fi
 fi
 
 echo ""
