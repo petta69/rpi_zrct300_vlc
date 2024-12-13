@@ -11,15 +11,153 @@
             <form method="post" id="settings" action="/settings">
                 <div class="form-group">
                     {% for key, value in config.items() %}
-                    <div class="row">
-                        <div class="col">
-                            <label id="settings_key" for="setting_value">{{ key }}</label>
+                    
+                    {% if '_active' in key %}
+                        <label style="display:none;" id="settings_key" for="setting_value">{{ key }}</label>
+                    {% elif '_on' in key %}
+                        <label style="display:none;" id="settings_key" for="setting_value">{{ key }}</label>
+                    {% elif '_off' in key %}
+                        <label style="display:none;" id="settings_key" for="setting_value">{{ key }}</label>
+
+                    {% else %}
+
+                        <div class="row">
+                            <div class="col">
+                                <label id="settings_key" for="setting_value">{{ key }}</label>
+                            </div>
+                            <div class="col form-check form-switch">
+                                {% if key == "adcp_use_schedule" %}
+                                    {% if value is true %}
+                                        <input class="form-check-input"  name="{{ key }}" id="useschedule" type="checkbox" onclick="show_schedule()" checked>
+                                        <label class="form-check-label" for="useschedule" > Use Power Schedule</label>
+                                    {% else %}
+                                        <input class="form-check-input"  name="{{ key }}" id="useschedule" type="checkbox" onclick="show_schedule()">
+                                        <label class="form-check-label" for="useschedule" > Use Power Schedule </label>
+                                    {% endif %}
+                                        
+                                    {% if value is true %}
+                                        <div id="schedule-div" class="row">
+                                    {% else %}
+                                        <div id="schedule-div" class="row" style="display:none;">
+                                    {% endif %}
+                                    
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.monday_active is true %}
+                                            <input class="form-check-input"  name="monday_active" id="monday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="monday_active" > Monday</label>
+                                            <input type="time" min="00:00" max="24:00" name="monday_on" value="{{ config.monday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="monday_off" value="{{ config.monday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="monday_active" id="monday_active" type="checkbox">    
+                                            <label class="form-check-label" for="monday_active" > Monday</label>
+                                            <input type="time" min="00:00" max="24:00" name="monday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="monday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.tuesday_active is true %}
+                                            <input class="form-check-input"  name="tuesday_active" id="tuesday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="tuesday_active" > Tuesday</label>
+                                            <input type="time" min="00:00" max="24:00" name="tuesday_on" value="{{ config.tuesday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="tuesday_off" value="{{ config.tuesday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="tuesday_active" id="tuesday_active" type="checkbox">    
+                                            <label class="form-check-label" for="tuesday_active" > Tuesday</label>
+                                            <input type="time" min="00:00" max="24:00" name="tuesday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="tuesday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.wednesday_active is true %}
+                                            <input class="form-check-input"  name="wednesday_active" id="wednesday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="wednesday_active" > Wednesday</label>
+                                            <input type="time" min="00:00" max="24:00" name="wednesday_on" value="{{ config.wednesday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="wednesday_off" value="{{ config.wednesday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="wednesday_active" id="wednesday_active" type="checkbox">    
+                                            <label class="form-check-label" for="wednesday_active" > Wednesday</label>
+                                            <input type="time" min="00:00" max="24:00" name="wednesday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="wednesday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.thursday_active is true %}
+                                            <input class="form-check-input"  name="thursday_active" id="thursday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="thursday_active" > Thursday</label>
+                                            <input type="time" min="00:00" max="24:00" name="thursday_on" value="{{ config.thursday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="thursday_off" value="{{ config.thursday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="thursday_active" id="thursday_active" type="checkbox">    
+                                            <label class="form-check-label" for="thursday_active" > Thursday</label>
+                                            <input type="time" min="00:00" max="24:00" name="thursday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="thursday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.friday_active is true %}
+                                            <input class="form-check-input"  name="friday_active" id="friday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="friday_active" > Friday</label>
+                                            <input type="time" min="00:00" max="24:00" name="friday_on" value="{{ config.friday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="friday_off" value="{{ config.friday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="friday_active" id="friday_active" type="checkbox">    
+                                            <label class="form-check-label" for="friday_active" > Friday</label>
+                                            <input type="time" min="00:00" max="24:00" name="friday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="friday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.saturday_active is true %}
+                                            <input class="form-check-input"  name="saturday_active" id="saturday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="saturday_active" > Saturday</label>
+                                            <input type="time" min="00:00" max="24:00" name="saturday_on" value="{{ config.saturday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="saturday_off" value="{{ config.saturday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="saturday_active" id="saturday_active" type="checkbox">    
+                                            <label class="form-check-label" for="saturday_active" > Saturday</label>
+                                            <input type="time" min="00:00" max="24:00" name="saturday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="saturday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row"><br></div>
+                                    <div class="col">
+                                        {% if config.sunday_active is true %}
+                                            <input class="form-check-input"  name="sunday_active" id="sunday_active" type="checkbox" checked>    
+                                            <label class="form-check-label" for="sunday_active" > Sunday</label>
+                                            <input type="time" min="00:00" max="24:00" name="sunday_on" value="{{ config.sunday_on }}">
+                                            <input type="time" min="00:00" max="24:00" name="sunday_off" value="{{ config.sunday_off }}">
+                                        {% else %}
+                                            <input class="form-check-input"  name="sunday_active" id="sunday_active" type="checkbox">    
+                                            <label class="form-check-label" for="sunday_active" > Sunday</label>
+                                            <input type="time" min="00:00" max="24:00" name="sunday_on" value="09:00">
+                                            <input type="time" min="00:00" max="24:00" name="sunday_off" value="18:00">
+                                        {% endif %}
+                                    </div>
+
+
+
+
+                                </div>
+                                
+                                {% else %}
+                                    <input type="text" class="form-control" id="setting_value" name="{{ key }}" placeholder="{{ value }}">    
+                                {% endif %}
+                            </div>
+                            <div><br></div>
                         </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="setting_value" name="{{ key }}" placeholder="{{ value }}">    
-                        </div>
-                        <div><br></div>
-                    </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
 
@@ -28,6 +166,19 @@
 
 
         </div>
+
+        <script>
+            function show_schedule() {
+                let schedule = document.getElementById('useschedule')
+                let schedule_div = document.getElementById('schedule-div')
+                if (schedule.checked) {
+                    schedule_div.style.display = "flex"
+                } else {
+                    schedule_div.style.display = "none"
+                }
+            }
+        </script>
+
 
     </body>
 {% endblock %}

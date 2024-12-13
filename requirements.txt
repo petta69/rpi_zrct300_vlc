@@ -33,6 +33,7 @@ pynput==1.7.6
 PySide6==6.6.2
 PySide6_Addons==6.6.2
 PySide6_Essentials==6.6.2
+python-crontab==3.2.0
 python-multipart==0.0.9
 python-xlib==0.33
 pyusb==1.2.1

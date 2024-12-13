@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from settings import ReadConfig, ModelConfig, SaveConfig
+from lib.crontab_settings import write_crontab, read_crontab, remove_crontab
 from lib.video_player import player
 from lib.start_vlc import restart_vlc, start_vlc
 from lib.adcp import adcp
@@ -20,6 +21,8 @@ from lib.system import reboot_rpi
 from logger.logger import Logger
 
 config = ReadConfig()
+current_user = os.getlogin()
+schedule = read_crontab(current_user)
 
 app = FastAPI(title="RPI5 Control")
 
@@ -423,6 +426,9 @@ async def settings(request: Request):
         print(f"{k} -> {v}")
         settings[k] = v
     context['config'] = settings
+    ## Read schedule
+    cron_read = read_crontab(cron_user=current_user)
+    context['config'].update(cron_read)
     return templates.TemplateResponse(
         request=request, name="settings.html", context=context
     )
@@ -434,11 +440,65 @@ async def settings_update(request: Request,
                           adcp_host: str = Form(config.adcp_host),
                           adcp_port: int = Form(config.adcp_port),
                           adcp_password: str = Form(config.adcp_password),
+                          adcp_use_schedule: bool = Form(False),
                           srgcgi_host: str = Form(config.srgcgi_host),
                           srgcgi_port: int = Form(config.srgcgi_port),
                           srgcgi_username: str = Form(config.srgcgi_username),
                           srgcgi_password: str = Form(config.srgcgi_password),
-                          verbose: int = Form(config.verbose)):
+                          verbose: int = Form(config.verbose),
+                          monday_active: bool = Form(False),
+                          tuesday_active: bool = Form(False),
+                          wednesday_active: bool = Form(False),
+                          thursday_active: bool = Form(False),
+                          friday_active: bool = Form(False),
+                          saturday_active: bool = Form(False),
+                          sunday_active: bool = Form(False),
+                          monday_on: str = Form(...),
+                          monday_off: str = Form(...),
+                          tuesday_on: str = Form(...),
+                          tuesday_off: str = Form(...),
+                          wednesday_on: str = Form(...),
+                          wednesday_off: str = Form(...),
+                          thursday_on: str = Form(...),
+                          thursday_off: str = Form(...),
+                          friday_on: str = Form(...),
+                          friday_off: str = Form(...),
+                          saturday_on: str = Form(...),
+                          saturday_off: str = Form(...),
+                          sunday_on: str = Form(...),
+                          sunday_off: str = Form(...)
+                          ):
+        
+    ## Process for crontab
+    if adcp_use_schedule:
+        settings_cron = {
+            'monday_active': monday_active,
+            'monday_on': monday_on,
+            'monday_off': monday_off,
+            'tuesday_active': tuesday_active,
+            'tuesday_on': tuesday_on,
+            'tuesday_off': tuesday_off,
+            'wednesday_active': wednesday_active,
+            'wednesday_on': wednesday_on,
+            'wednesday_off': wednesday_off,
+            'thursday_active': thursday_active,
+            'thursday_on': thursday_on,
+            'thursday_off': thursday_off,
+            'friday_active': friday_active,
+            'friday_on': friday_on,
+            'friday_off': friday_off,
+            'saturday_active': saturday_active,
+            'saturday_on': saturday_on,
+            'saturday_off': saturday_off,
+            'sunday_active': sunday_active,
+            'sunday_on': sunday_on,
+            'sunday_off': sunday_off
+        }
+        remove_crontab(cron_user=current_user)
+        write_crontab(cron_user=current_user, cron_dict=settings_cron)
+    else:
+        remove_crontab(cron_user=current_user)
+
     ## After pressing submit we need to save dict to settings.json
     data = {
         'vlc_default_videodir': vlc_default_videodir,
@@ -446,6 +506,7 @@ async def settings_update(request: Request,
         'adcp_host': adcp_host,
         'adcp_port': adcp_port,
         'adcp_password': adcp_password,
+        'adcp_use_schedule': adcp_use_schedule,
         'srgcgi_host': srgcgi_host,
         'srgcgi_port': srgcgi_port,
         'srgcgi_username': srgcgi_username,
@@ -463,10 +524,14 @@ async def settings_update(request: Request,
         print(f"{k} -> {v}")
         settings[k] = v
     context['config'] = settings
+    cron_read = read_crontab(cron_user=current_user)
+    context['config'].update(cron_read)
 
     return templates.TemplateResponse(
         request=request, name="settings.html", context=context
     )
+
+
 
 if(__name__) == '__main__':
         import uvicorn
