@@ -95,6 +95,7 @@ class ModelADCP(str, Enum):
      WideModeStretch = "WideModeStretch"
      WideModeNative = "WideModeNative"
      Status = "Status"
+     Contrast = "Contrast"
 
 
 class ModelSRGCGI(str, Enum):
@@ -188,7 +189,7 @@ async def vlc_api_function(function: ModelVLC):
     return {"Function": function} 
 
 @app.get("/api/adcp/{function}")
-async def adcp_api_function(function: ModelADCP):
+async def adcp_api_function(function: ModelADCP, contrast_value: int = 0, light_output_step: int = 0):
     result = []
     if check_flooding(function.value):
         return {'Error': 'Flooding'}
@@ -274,6 +275,9 @@ async def adcp_api_function(function: ModelADCP):
         response = adcp_controller.send_Status()
         for item in response:
             result.append(item)
+    elif function is ModelADCP.Contrast:
+        logger.debug(f"New contrast: {contrast_value} -- LightOutputStep: {light_output_step}")
+        result.append(adcp_controller.send_LightSensorUpdate(contrast_value=contrast_value, light_output_step=light_output_step))
     logger.debug(f'result: {result}')
     return result
 

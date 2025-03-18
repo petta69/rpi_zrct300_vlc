@@ -2,6 +2,36 @@ import socket
 import ipaddress
 from typing import Optional
 
+import logging
+
+
+class Logger:
+    # * This is a class that will create a logger object to be used in your script 
+    def __init__(self, name=__name__, level=int(1), file_path=None):
+        self.logger = logging.getLogger(name)
+        # # Default log level is set to INFO
+        if level > 4:
+            # # If verbose is more than 4
+            self.logger.setLevel('DEBUG')
+        else:
+            self.logger.setLevel('INFO')
+
+
+        formatter = logging.Formatter('%(asctime)s - [%(levelname)s] %(name)s ''%(funcName)s | %(message)s')
+
+        if file_path:
+            file_handler = logging.FileHandler(file_path)
+            file_handler.setFormatter(formatter)
+            self.logger.addHandler(file_handler)
+
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(formatter)
+        self.logger.addHandler(console_handler)
+
+    def get_logger(self):
+        return self.logger
+
+
 def validate_ipaddress(host_string):
     try:
         ip_object = ipaddress.ip_address(host_string)
@@ -64,6 +94,7 @@ class bravia_ssip:
                 response = self._sock.recv(96)
                 # # Now add to our response_payload
                 response_payload = f"{response_payload}{response.decode('utf-8')}"
+                logger.debug(response_payload)
                 if response_payload.endswith('\n'):
                     return response_payload
                 else: 
@@ -103,6 +134,8 @@ class bravia_ssip:
 
 
 if __name__ == "__main__":
+    logger = Logger(name=__name__, level=5).get_logger()
+
     bravia = bravia_ssip(host_ip="192.168.111.141", verbose=5)
     bravia.set_power_on()
     bravia.set_input_hdmi1()

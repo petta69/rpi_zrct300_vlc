@@ -268,6 +268,16 @@ class adcp:
     def send_WideModeNative(self):
         command = 'aspect "native"'
         return self._send_command(command=command)
+    
+    
+    def send_LightSensorUpdate(self, contrast_value, light_output_step):
+        return_dict = {}
+        command = f'light_output_val {light_output_step}'
+        return_dict["LightStep"] = self._send_command(command=command)
+        command = f'contrast --hr {contrast_value}'
+        return_dict["Contrast"] = self._send_command(command=command)
+        return return_dict
+        
 
 
     def send_Status(self):
