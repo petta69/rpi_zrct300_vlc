@@ -15,7 +15,7 @@ xset s off
 sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 
 ## Prepare python env
-sudo apt -y install virtualenv
+sudo apt -y install virtualenv deconz
 virtualenv .venv
 
 ## Start the virtual environment
@@ -95,6 +95,10 @@ systemctl --user enable streamdeck
 systemctl --user enable rpi_zrct300_vlc
 systemctl --user start streamdeck
 systemctl --user start rpi_zrct300_vlc
+
+## DeConz
+sudo systemctl enable deconz.service
+sudo systemctl start deconz.service
 
 ## Set wallpaper
 /usr/bin/pcmanfm --set-wallpaper="source/rpi_zrct300_vlc/images/SONY_WhiteOnBlack.png" --display=:0

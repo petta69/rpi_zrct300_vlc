@@ -11,7 +11,7 @@ from pydantic import BaseModel
 class ModelConfig(BaseModel):
     vlc_default_videodir: Optional[str] = f"{os.environ['HOME']}/Videos"
     vlc_custom_usb_videodir: Optional[str] = "media"
-    adcp_host: Optional[str] = "192.168.0.10"
+    adcp_host: Optional[str] = "192.168.6.10"
     adcp_port: Optional[int] = 53595
     adcp_password: Optional[str] = "chiron01"
     adcp_use_schedule: Optional[bool] = False
@@ -21,6 +21,9 @@ class ModelConfig(BaseModel):
     srgcgi_port: Optional[int] = 80
     srgcgi_username: Optional[str] = "admin"
     srgcgi_password: Optional[str] = "1234"
+    deconz_min_lux: Optional[int] = 40
+    deconz_max_lux: Optional[int] = 500
+    deconz_cled_type: Optional[str] = "CH"
     verbose: Optional[int] = 5
 
 class ReadSettings():

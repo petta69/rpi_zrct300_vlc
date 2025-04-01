@@ -5,6 +5,8 @@ import urllib.request
 
 import websocket
 
+from settings import ReadConfig
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -21,9 +23,6 @@ file_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)
 logger.addHandler(stdout_handler)
-
-min_lux_limit = 40
-max_lux_limit = 500
 
 
 def calc_cdm2_to_contrast_step_CH(candela: int):
@@ -115,10 +114,14 @@ def calc_cdm2_to_contrast_step_BH(candela: int):
     ## The actual calculation
     tick = max_contrast / (max_candela - min_candela)
     contrast = int(tick * (candela - min_candela))
+    logger.debug(f'"contrast": {contrast}, "step": {light_step}, "tick": {tick}, "candela": {candela}')
     return {"contrast": contrast, "step": light_step}
 
 
 def lux_to_contrast_lightstep(cled_type: str, lux: int):
+    min_lux_limit = config.deconz_min_lux
+    max_lux_limit = config.deconz_max_lux
+
     ## Limit check
     if lux < min_lux_limit:
         lux = min_lux_limit
@@ -146,7 +149,7 @@ def lux_to_contrast_lightstep(cled_type: str, lux: int):
             candela = (max / lux_factor) + min
         except:
             candela = min
-        cdm2_dict = calc_cdm2_to_contrast_step_CH(candela=candela)
+        cdm2_dict = calc_cdm2_to_contrast_step_BH(candela=candela)
 
 
     url = f'http://127.0.0.1:5000/api/adcp/Contrast?contrast_value={cdm2_dict["contrast"]}&light_output_step={cdm2_dict["step"]}'
@@ -158,10 +161,14 @@ def lux_to_contrast_lightstep(cled_type: str, lux: int):
 
 
 def on_message(wsapp, message):
+    global config
+    config = ReadConfig()
+    cled_type = config.deconz_cled_type
+
     message = json.loads(message)
     if message["id"] == "3" and "state" in message.keys():
         logger.info(f"Lux: {message['state']['lux']} Level: {message['state']['lightlevel']}")
-        lux_to_contrast_lightstep("CH", message['state']['lux'])
+        lux_to_contrast_lightstep(cled_type=cled_type, lux=message['state']['lux'])
         
 
 if __name__ == "__main__":

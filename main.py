@@ -87,7 +87,7 @@ class ModelADCP(str, Enum):
      MotionFlow2 = "MotionFlow2"
      MotionFlow3 = "MotionFlow3"
      MotionFlow4 = "MotionFlow4"
-     RealityCreationOn = "RealityCreatonOn"
+     RealityCreationOn = "RealityCreationOn"
      RealityCreationOff = "RealityCreationOff"
      WideModeNormal = "WideModeNormal"
      WideModeFull = "WideModeFull"
@@ -191,7 +191,8 @@ async def vlc_api_function(function: ModelVLC):
 @app.get("/api/adcp/{function}")
 async def adcp_api_function(function: ModelADCP, contrast_value: int = 0, light_output_step: int = 0):
     result = []
-    if check_flooding(function.value):
+    ## Check flooding. NOTE: If we send contrast_value and light_output_step it means it comes from deconz and flooding is allowed
+    if check_flooding(function.value) and contrast_value == 0 and light_output_step == 0:
         return {'Error': 'Flooding'}
     try:
         config = ReadConfig()
@@ -449,6 +450,9 @@ async def settings_update(request: Request,
                           srgcgi_port: int = Form(config.srgcgi_port),
                           srgcgi_username: str = Form(config.srgcgi_username),
                           srgcgi_password: str = Form(config.srgcgi_password),
+                          deconz_min_lux: str = Form(config.deconz_min_lux),
+                          deconz_max_lux: str = Form(config.deconz_max_lux),
+                          deconz_cled_type: str = Form(config.deconz_cled_type),
                           verbose: int = Form(config.verbose),
                           monday_active: bool = Form(False),
                           tuesday_active: bool = Form(False),
@@ -515,6 +519,9 @@ async def settings_update(request: Request,
         'srgcgi_port': srgcgi_port,
         'srgcgi_username': srgcgi_username,
         'srgcgi_password': srgcgi_password,
+        'deconz_min_lux': deconz_min_lux,
+        'deconz_max_lux': deconz_max_lux,
+        'deconz_cled_type': deconz_cled_type,
         'verbose': verbose
     }
     data_config = ModelConfig(**data)

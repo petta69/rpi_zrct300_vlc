@@ -48,6 +48,7 @@ class adcp:
                 self._sock.send(auth_hash_binary)
                 response_passwd = self._receive_response()
                 self.logger.debug(f"Response: {response_passwd}")
+                return True
             except:
                 ## If no response, there is no password needed
                 self.logger.debug('No response, most likely no password needed')
@@ -76,7 +77,9 @@ class adcp:
             self.logger.debug(f"Response: {response}")
         except:
             response = []
+        self._close_connection()
         return {"Sending": command, "Response": response}
+        
         
     def _receive_response(self) -> Optional[dict]:
         response_payload = ""
