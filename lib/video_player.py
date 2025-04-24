@@ -27,7 +27,7 @@ class player():
         self.req("loop on")
         self.req("random on")
         self.req(f"add {self.media_dir}")
-        print(f"Start Playing from: {self.media_dir}")
+        logger.info(f"Start Playing from: {self.media_dir}")
         return self.media_dir
     
     def play_design_list(self, media_dir, random=False):
@@ -39,7 +39,7 @@ class player():
             if random:
                 self.req("random on")
             self.req(f"add {self.media_playlist}")
-            print(f"Start Playing: {self.media_playlist}")
+            logger.info(f"Start Playing: {self.media_playlist}")
             return self.media_playlist
         else:
             return "Error: Design directory does not exist"
@@ -53,7 +53,7 @@ class player():
             if random:
                 self.req("random on")
             self.req(f"add {self.media_playlist}")
-            print(f"Start Playing: {self.media_playlist}")
+            logger.info(f"Start Playing: {self.media_playlist}")
             return self.media_playlist
         else:
             return "Error: Corporate directory does not exist"
@@ -67,7 +67,7 @@ class player():
             if random:
                 self.req("random on")
             self.req(f"add {self.media_playlist}")
-            print(f"Start Playing: {self.media_playlist}")
+            logger.info(f"Start Playing: {self.media_playlist}")
             return self.media_playlist
         else:
             return "Error: Retail directory does not exist"
@@ -79,33 +79,33 @@ class player():
         self.req("random on")
         self.media_dir = find_usb_media_dir(custom_dirname)
         self.req(f"add {self.media_dir}")
-        print(f"Start Playing from: {self.media_dir}")
+        logger.info(f"Start Playing from: {self.media_dir}")
         return self.media_dir
 
 
     def next(self):
         self.req("next")
-        print("Next")
+        logger.info("Next")
         pass
 
     def prev(self):
         self.req("prev")
-        print("Previous")
+        logger.info("Previous")
         pass
 
     def play(self):
         self.req("play")
-        print("Play")
+        logger.info("Play")
         pass
 
     def pause(self):
         self.req("pause")
-        print("Pause")
+        logger.info("Pause")
         pass
 
     def help(self):
         response = self.req("help")
-        print("Help")
+        logger.info("Help")
         print(response)
         return response
 
@@ -124,7 +124,7 @@ class player():
     def playlist(self) -> list:
         response = self.req("playlist")
         response[0] = response[0].lstrip('> ')
-        print(response)
+        logger.info(response)
         return response
 
 
@@ -139,13 +139,13 @@ class player():
     def volup(self):
         self.current_vol = self.current_vol + self.VOL_STEP
         self.req("volume " + str(self.current_vol))
-        print("Volume up")
+        logger.info("Volume up")
         pass
 
     def voldown(self):
         self.current_vol = self.current_vol - self.VOL_STEP
         self.req("volume " + str(self.current_vol))
-        print("Volume Down")
+        logger.info("Volume Down")
         pass
 
     def seek(self, forward: bool):
@@ -203,7 +203,7 @@ class player():
                 response_list = response.splitlines()
                 # # Remove VLC welcome text
                 del response_list[:2]
-                print(response_list)
+                logger.debug(response_list)
                 return response_list
         except:
             return None
@@ -216,7 +216,7 @@ def find_usb_media_dir(custom_usb_videodir, mindepth=2, maxdepth=3):
         depth = depth + 1
         if depth >= mindepth and depth <= maxdepth and custom_usb_videodir in dirs:
             if os.path.isdir(f"{root}/{custom_usb_videodir}"):
-                print(f"INFO: Directories in path - {root} -- {dirs}")
+                logger.info(f"INFO: Directories in path - {root} -- {dirs}")
                 return f"{root}/{custom_usb_videodir}"
     ## If we do not find dir we return False
     return False        

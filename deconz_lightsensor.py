@@ -16,7 +16,7 @@ stdout_handler = logging.StreamHandler(sys.stdout)
 stdout_handler.setLevel(logging.DEBUG)
 stdout_handler.setFormatter(formatter)
 
-file_handler = logging.FileHandler('/tmp/logs.log')
+file_handler = logging.FileHandler('/tmp/deconz_lightsensor.log')
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 

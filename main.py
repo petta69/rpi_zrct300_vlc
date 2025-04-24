@@ -10,7 +10,14 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+## Get settings and store in dict
 from settings import ReadConfig, ModelConfig, SaveConfig
+config = ReadConfig()
+
+## Configure logger object
+from logger.logger import Logger
+logger = Logger(name=__name__, level=config.verbose, file_path="/tmp/rpi_zrct300_vlc.txt").get_logger()
+
 from lib.crontab_settings import write_crontab, read_crontab, remove_crontab
 from lib.video_player import player
 from lib.start_vlc import restart_vlc, start_vlc
@@ -18,9 +25,7 @@ from lib.adcp import adcp
 from lib.camera import Camera
 from lib.srg_cgi import srg_cgi
 from lib.system import reboot_rpi
-from logger.logger import Logger
 
-config = ReadConfig()
 current_user = os.getlogin()
 schedule = read_crontab(current_user)
 
@@ -30,7 +35,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/images", StaticFiles(directory="images"), name="images")
 templates = Jinja2Templates(directory="templates")
 
-logger = Logger(name=__name__, level=config.verbose).get_logger()
 
 flood_oldfunction = "none"
 flood_oldtime = timeit.default_timer()
