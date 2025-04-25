@@ -54,8 +54,10 @@ ln -s $bootstrap_dir bootstrap
 ## Copy default files
 $RSYNC -av $CONTROLLER_HOME/system/install/start_controller.sh $CONTROLLER_HOME/
 $RSYNC -av $CONTROLLER_HOME/system/install/start_streamdeck.sh $CONTROLLER_HOME/
+$RSYNC -av $CONTROLLER_HOME/system/install/start_deconzWebhook.sh $CONTROLLER_HOME/
 $RSYNC -av $CONTROLLER_HOME/system/install/rpi_zrct300_vlc.service $CONTROLLER_HOME/system/
 $RSYNC -av $CONTROLLER_HOME/system/install/streamdeck.service $CONTROLLER_HOME/system/
+$RSYNC -av $CONTROLLER_HOME/system/install/deconzWebhook.service $CONTROLLER_HOME/system/
 
 ## Define default config file for streamdeck
 export STREAMDECK_UI_CONFIG="$CONTROLLER_HOME/streamdeck_ui_export.json"
@@ -70,6 +72,10 @@ if [ -f start_streamdeck.sh ]
 then
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_streamdeck.sh
 fi
+if [ -f start_deconzWebhook.sh ]
+then
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" start_deconzWebhook.sh
+fi
 
 ## Same thing for the service scripts
 if [ -f system/streamdeck.service ]
@@ -79,6 +85,10 @@ fi
 if [ -f system/rpi_zrct300_vlc.service ]
 then
     sed -i "s|REPLACE|$CONTROLLER_HOME|g" system/rpi_zrct300_vlc.service
+fi
+if [ -f system/deconzWebhook.service ]
+then
+    sed -i "s|REPLACE|$CONTROLLER_HOME|g" system/deconzWebhook.service
 fi
 
 
@@ -90,11 +100,14 @@ fi
 
 sudo ln -s $CONTROLLER_HOME/system/rpi_zrct300_vlc.service /usr/lib/systemd/user/ 
 sudo ln -s $CONTROLLER_HOME/system/streamdeck.service /usr/lib/systemd/user/
+sudo ln -s $CONTROLLER_HOME/system/deconzWebhook.service /usr/lib/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable streamdeck
 systemctl --user enable rpi_zrct300_vlc
+systemctl --user enable deconzWebhook
 systemctl --user start streamdeck
 systemctl --user start rpi_zrct300_vlc
+systemctl --user start deconzWebhook
 
 ## DeConz
 sudo systemctl enable deconz.service

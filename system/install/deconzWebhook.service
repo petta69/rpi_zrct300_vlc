@@ -1,0 +1,10 @@
+[Unit]
+Description=deconzWebhook
+
+[Service]
+Type=idle
+ExecStart=REPLACE/start_deconzWebhook.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

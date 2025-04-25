@@ -21,6 +21,7 @@ class ModelConfig(BaseModel):
     srgcgi_port: Optional[int] = 80
     srgcgi_username: Optional[str] = "admin"
     srgcgi_password: Optional[str] = "1234"
+    deconz_active: Optional[bool] = False
     deconz_min_lux: Optional[int] = 40
     deconz_max_lux: Optional[int] = 500
     deconz_cled_type: Optional[str] = "CH"

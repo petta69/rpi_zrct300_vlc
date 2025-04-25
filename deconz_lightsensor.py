@@ -2,21 +2,29 @@ import sys
 import logging
 import json
 import urllib.request
+from logging.handlers import RotatingFileHandler
 
 import websocket
 
 from settings import ReadConfig
 
 
+file_path='/tmp/deconzWebhook.log'
+max_bytes=5*1024*1024
+backup_count=5
+
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s | [%(levelname)s] %(name)s ''%(funcName)s | %(message)s')
+formatter = logging.Formatter('%(asctime)s | [%(levelname)s] %(module)s ''%(funcName)s | %(message)s')
 
 stdout_handler = logging.StreamHandler(sys.stdout)
 stdout_handler.setLevel(logging.DEBUG)
 stdout_handler.setFormatter(formatter)
 
-file_handler = logging.FileHandler('/tmp/deconz_lightsensor.log')
+#file_handler = logging.FileHandler('/tmp/deconz_lightsensor.log')
+file_handler = RotatingFileHandler(
+                file_path, maxBytes=max_bytes, backupCount=backup_count
+            )
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 
