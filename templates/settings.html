@@ -12,11 +12,11 @@
                 <div class="form-group">
                     {% for key, value in config.items() %}
                     
-                    {% if '_active' in key %}
+                    {% if 'day_active' in key %}
                         <label style="display:none;" id="settings_key" for="setting_value">{{ key }}</label>
-                    {% elif '_on' in key %}
+                    {% elif 'day_on' in key %}
                         <label style="display:none;" id="settings_key" for="setting_value">{{ key }}</label>
-                    {% elif '_off' in key %}
+                    {% elif 'day_off' in key %}
                         <label style="display:none;" id="settings_key" for="setting_value">{{ key }}</label>
 
                     {% else %}
@@ -145,11 +145,19 @@
                                             <input type="time" min="00:00" max="24:00" name="sunday_off" value="18:00">
                                         {% endif %}
                                     </div>
+                                </div></div>
+                                <div>
 
 
+                                {% elif key == "deconz_active" %}
+                                    {% if value is true %}
+                                        <input class="form-check-input"  name="{{ key }}" id="deconzactive" type="checkbox" checked>
+                                        <label class="form-check-label" for="deconzactive" > Use Lightsensor</label>
+                                    {% else %}
+                                        <input class="form-check-input"  name="{{ key }}" id="deconzactive" type="checkbox">
+                                        <label class="form-check-label" for="deconzactive" > Use Lightsensor </label>
+                                    {% endif %}
 
-
-                                </div>
                                 
                                 {% else %}
                                     <input type="text" class="form-control" id="setting_value" name="{{ key }}" placeholder="{{ value }}">    

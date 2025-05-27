@@ -100,6 +100,8 @@ class ModelADCP(str, Enum):
      WideModeNative = "WideModeNative"
      Status = "Status"
      Contrast = "Contrast"
+     LightSensorOn = "LightSensorOn"
+     LightSensorOff = "LightSensorOff"
 
 
 class ModelSRGCGI(str, Enum):
@@ -280,9 +282,18 @@ async def adcp_api_function(function: ModelADCP, contrast_value: int = 0, light_
         response = adcp_controller.send_Status()
         for item in response:
             result.append(item)
-    elif function is ModelADCP.Contrast:
+    ## Deconz settings
+    elif function is ModelADCP.Contrast and config.deconz_active:
         logger.debug(f"New contrast: {contrast_value} -- LightOutputStep: {light_output_step}")
         result.append(adcp_controller.send_LightSensorUpdate(contrast_value=contrast_value, light_output_step=light_output_step))
+    elif function is ModelADCP.LightSensorOn:
+        config.deconz_active = True
+        config = SaveConfig(config)
+        result.append(config)
+    elif function is ModelADCP.LightSensorOff:
+        config.deconz_active = False
+        config = SaveConfig(config)
+        result.append(config)
     logger.debug(f'result: {result}')
     return result
 

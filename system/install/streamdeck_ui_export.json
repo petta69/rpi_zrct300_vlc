@@ -266,8 +266,16 @@
                         "icon": "icons/adcp/home.png",
                         "switch_page": 1
                     },
-                    "5": {},
-                    "6": {},
+                    "5": {
+                        "text": "LightSensorOn",
+                        "icon": "icons/adcp/lightsensoron.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightSensorOn -o /dev/null"
+                    },
+                    "6": {
+                        "text": "LightSensorOff",
+                        "icon": "icons/adcp/lightsensoroff.png",
+                        "command": "/usr/bin/curl http://127.0.0.1:5000/api/adcp/LightSensorOff -o /dev/null"
+                    },
                     "7": {},
                     "8": {},
                     "9": {
