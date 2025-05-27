@@ -14,7 +14,15 @@ xset s off
 ## First make sure system is up to date
 sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 
-## Prepare python env
+## Prepare python env and add Phoscon repo
+wget -qO- https://phoscon.de/apt/deconz.pub.key | gpg --dearmor | \
+    sudo tee /etc/apt/trusted.gpg.d/deconz-keyring.gpg >/dev/null
+
+sudo sh -c "echo 'deb http://phoscon.de/apt/deconz \
+            generic main' > \
+            /etc/apt/sources.list.d/deconz.list"
+sudo apt update
+
 sudo apt -y install virtualenv deconz
 virtualenv .venv
 
