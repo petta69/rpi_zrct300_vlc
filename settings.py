@@ -15,6 +15,9 @@ class ModelConfig(BaseModel):
     adcp_port: Optional[int] = 53595
     adcp_password: Optional[str] = "chiron01"
     adcp_use_schedule: Optional[bool] = False
+    novastar_host: Optional[str] = "192.168.6.100"
+    novastar_port: Optional[int] = 8001
+    led_type: Optional[str] = "Cancun"
     # visca_host: Optional[str] = "192.168.0.20"
     # visca_port: Optional[int] = 52381
     srgcgi_host: Optional[str] = ""

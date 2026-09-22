@@ -22,6 +22,7 @@ from lib.crontab_settings import write_crontab, read_crontab, remove_crontab
 from lib.video_player import player
 from lib.start_vlc import restart_vlc, start_vlc
 from lib.adcp import adcp
+from lib.novastar import novastar
 from lib.camera import Camera
 from lib.srg_cgi import srg_cgi
 from lib.system import reboot_rpi
@@ -202,98 +203,119 @@ async def adcp_api_function(function: ModelADCP, contrast_value: int = 0, light_
         return {'Error': 'Flooding'}
     try:
         config = ReadConfig()
-        adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
+        if config.led_type == "Cancun":
+            adcp_controller = adcp(host_ip=config.adcp_host, port=config.adcp_port, password=config.adcp_password, verbose=config.verbose)
+        elif config.led_type == "Bali":
+            adcp_controller = novastar(host_ip=config.novastar_host, host_port=config.novastar_port, verbose=config.verbose)
+            print("Bali")
     except:
         return {"ERROR": "Could not connect to host"}
-    if function is ModelADCP.PowerOn:
-        result.append(adcp_controller.send_power_on())
-    elif function is ModelADCP.PowerOff:
-        result.append(adcp_controller.send_power_off())
-    elif function is ModelADCP.Preset1:
-        result.append(adcp_controller.send_preset1())
-    elif function is ModelADCP.Preset2:
-        result.append(adcp_controller.send_preset2())
-    elif function is ModelADCP.Preset3:
-        result.append(adcp_controller.send_preset3())
-    elif function is ModelADCP.Preset4:
-        result.append(adcp_controller.send_preset4())
-    elif function is ModelADCP.Preset5:
-        result.append(adcp_controller.send_preset5())
-    elif function is ModelADCP.Preset6:
-        result.append(adcp_controller.send_preset6())
-    elif function is ModelADCP.LightOutput1:
-        result.append(adcp_controller.send_lightoutput1())
-    elif function is ModelADCP.LightOutput2:
-        result.append(adcp_controller.send_lightoutput2())
-    elif function is ModelADCP.LightOutput3:
-        result.append(adcp_controller.send_lightoutput3())
-    elif function is ModelADCP.LightOutput4:
-        result.append(adcp_controller.send_lightoutput4())
-    elif function is ModelADCP.LightOutput5:
-        result.append(adcp_controller.send_lightoutput5())
-    elif function is ModelADCP.LightOutput6:
-        result.append(adcp_controller.send_lightoutput6())
-    elif function is ModelADCP.InputDP1:
-        result.append(adcp_controller.send_inputDP1())
-    elif function is ModelADCP.InputDP2:
-        result.append(adcp_controller.send_inputDP2())
-    elif function is ModelADCP.InputDP12:
-        result.append(adcp_controller.send_inputDP12())
-    elif function is ModelADCP.InputHDMI1:
-        result.append(adcp_controller.send_inputHDMI1())
-    elif function is ModelADCP.InputHDMI2:
-        result.append(adcp_controller.send_inputHDMI2())
-    elif function is ModelADCP.PictureMuteOn:
-        result.append(adcp_controller.send_PictureMuteOn())
-    elif function is ModelADCP.PictureMuteOff:
-        result.append(adcp_controller.send_PictureMuteOff())
-    elif function is ModelADCP.SDR:
-        result.append(adcp_controller.send_SDR())
-    elif function is ModelADCP.HDR:
-        result.append(adcp_controller.send_HDR())
-    elif function is ModelADCP.HDRAuto:
-        result.append(adcp_controller.send_HDR_Auto())
-    elif function is ModelADCP.RealityCreationOn:
-        result.append(adcp_controller.send_RealitycreationOn())
-    elif function is ModelADCP.RealityCreationOff:
-        result.append(adcp_controller.send_RealityCreationOff())
-    elif function is ModelADCP.MotionFlowOff:
-        result.append(adcp_controller.send_MotionFlowOff())
-    elif function is ModelADCP.MotionFlow1:
-        result.append(adcp_controller.send_MotionFlow1())
-    elif function is ModelADCP.MotionFlow2:
-        result.append(adcp_controller.send_MotionFlow2())
-    elif function is ModelADCP.MotionFlow3:
-        result.append(adcp_controller.send_MotionFlow3())
-    elif function is ModelADCP.MotionFlow4:
-        result.append(adcp_controller.send_MotionFlow4())
-    elif function is ModelADCP.WideModeNormal:
-        result.append(adcp_controller.send_WideModeNormal())
-    elif function is ModelADCP.WideModeFull:
-        result.append(adcp_controller.send_WideModeFull())
-    elif function is ModelADCP.WideModeZoom:
-        result.append(adcp_controller.send_WideModeZoom())
-    elif function is ModelADCP.WideModeStretch:
-        result.append(adcp_controller.send_WideModeStretch())
-    elif function is ModelADCP.WideModeNative:
-        result.append(adcp_controller.send_WideModeNative())
-    elif function is ModelADCP.Status:
-        ## This function returns a list
-        response = adcp_controller.send_Status()
-        for item in response:
-            result.append(item)
-    ## Deconz settings
-    elif function is ModelADCP.Contrast and config.deconz_active:
-        logger.debug(f"New contrast: {contrast_value} -- LightOutputStep: {light_output_step}")
-        result.append(adcp_controller.send_LightSensorUpdate(contrast_value=contrast_value, light_output_step=light_output_step))
-    elif function is ModelADCP.LightSensorOn:
-        config.deconz_active = True
-        config = SaveConfig(config)
-        result.append(config)
-    elif function is ModelADCP.LightSensorOff:
-        config.deconz_active = False
-        config = SaveConfig(config)
-        result.append(config)
+
+    ## First we do do Cancun things
+    if config.led_type == "Cancun":
+        if function is ModelADCP.PowerOn:
+            result.append(adcp_controller.send_power_on())
+        elif function is ModelADCP.PowerOff:
+            result.append(adcp_controller.send_power_off())
+        elif function is ModelADCP.Preset1:
+            result.append(adcp_controller.send_preset1())
+        elif function is ModelADCP.Preset2:
+            result.append(adcp_controller.send_preset2())
+        elif function is ModelADCP.Preset3:
+            result.append(adcp_controller.send_preset3())
+        elif function is ModelADCP.Preset4:
+            result.append(adcp_controller.send_preset4())
+        elif function is ModelADCP.Preset5:
+            result.append(adcp_controller.send_preset5())
+        elif function is ModelADCP.Preset6:
+            result.append(adcp_controller.send_preset6())
+        elif function is ModelADCP.LightOutput1:
+            result.append(adcp_controller.send_lightoutput1())
+        elif function is ModelADCP.LightOutput2:
+            result.append(adcp_controller.send_lightoutput2())
+        elif function is ModelADCP.LightOutput3:
+            result.append(adcp_controller.send_lightoutput3())
+        elif function is ModelADCP.LightOutput4:
+            result.append(adcp_controller.send_lightoutput4())
+        elif function is ModelADCP.LightOutput5:
+            result.append(adcp_controller.send_lightoutput5())
+        elif function is ModelADCP.LightOutput6:
+            result.append(adcp_controller.send_lightoutput6())
+        elif function is ModelADCP.InputDP1:
+            result.append(adcp_controller.send_inputDP1())
+        elif function is ModelADCP.InputDP2:
+            result.append(adcp_controller.send_inputDP2())
+        elif function is ModelADCP.InputDP12:
+            result.append(adcp_controller.send_inputDP12())
+        elif function is ModelADCP.InputHDMI1:
+            result.append(adcp_controller.send_inputHDMI1())
+        elif function is ModelADCP.InputHDMI2:
+            result.append(adcp_controller.send_inputHDMI2())
+        elif function is ModelADCP.PictureMuteOn:
+            result.append(adcp_controller.send_PictureMuteOn())
+        elif function is ModelADCP.PictureMuteOff:
+            result.append(adcp_controller.send_PictureMuteOff())
+        elif function is ModelADCP.SDR:
+            result.append(adcp_controller.send_SDR())
+        elif function is ModelADCP.HDR:
+            result.append(adcp_controller.send_HDR())
+        elif function is ModelADCP.HDRAuto:
+            result.append(adcp_controller.send_HDR_Auto())
+        elif function is ModelADCP.RealityCreationOn:
+            result.append(adcp_controller.send_RealitycreationOn())
+        elif function is ModelADCP.RealityCreationOff:
+            result.append(adcp_controller.send_RealityCreationOff())
+        elif function is ModelADCP.MotionFlowOff:
+            result.append(adcp_controller.send_MotionFlowOff())
+        elif function is ModelADCP.MotionFlow1:
+            result.append(adcp_controller.send_MotionFlow1())
+        elif function is ModelADCP.MotionFlow2:
+            result.append(adcp_controller.send_MotionFlow2())
+        elif function is ModelADCP.MotionFlow3:
+            result.append(adcp_controller.send_MotionFlow3())
+        elif function is ModelADCP.MotionFlow4:
+            result.append(adcp_controller.send_MotionFlow4())
+        elif function is ModelADCP.WideModeNormal:
+            result.append(adcp_controller.send_WideModeNormal())
+        elif function is ModelADCP.WideModeFull:
+            result.append(adcp_controller.send_WideModeFull())
+        elif function is ModelADCP.WideModeZoom:
+            result.append(adcp_controller.send_WideModeZoom())
+        elif function is ModelADCP.WideModeStretch:
+            result.append(adcp_controller.send_WideModeStretch())
+        elif function is ModelADCP.WideModeNative:
+            result.append(adcp_controller.send_WideModeNative())
+        elif function is ModelADCP.Status:
+            ## This function returns a list
+            response = adcp_controller.send_Status()
+            for item in response:
+                result.append(item)
+        ## Deconz settings
+        elif function is ModelADCP.Contrast and config.deconz_active:
+            logger.debug(f"New contrast: {contrast_value} -- LightOutputStep: {light_output_step}")
+            result.append(adcp_controller.send_LightSensorUpdate(contrast_value=contrast_value, light_output_step=light_output_step))
+        elif function is ModelADCP.LightSensorOn:
+            config.deconz_active = True
+            config = SaveConfig(config)
+            result.append(config)
+        elif function is ModelADCP.LightSensorOff:
+            config.deconz_active = False
+            config = SaveConfig(config)
+            result.append(config)
+
+    ## And now the Bali things
+    elif config.led_type == "Bali":
+        ## Novastar settings
+        if function is ModelADCP.Preset1:
+            result.append(adcp_controller.send_ApplyPreset(preset=1))
+        elif function is ModelADCP.Preset2:
+            result.append(adcp_controller.send_ApplyPreset(preset=2))
+        elif function is ModelADCP.Preset3:
+            result.append(adcp_controller.send_ApplyPreset(preset=3))
+        elif function is ModelADCP.Preset4:
+            result.append(adcp_controller.send_ApplyPreset(preset=4))
+
+
     logger.debug(f'result: {result}')
     return result
 
@@ -461,6 +483,9 @@ async def settings_update(request: Request,
                           adcp_port: int = Form(config.adcp_port),
                           adcp_password: str = Form(config.adcp_password),
                           adcp_use_schedule: bool = Form(False),
+                          novastar_host: str = Form(config.novastar_host),
+                          novastar_port: int = Form(config.novastar_port),
+                          led_type: str = Form(config.led_type),
                           srgcgi_host: str = Form(config.srgcgi_host),
                           srgcgi_port: int = Form(config.srgcgi_port),
                           srgcgi_username: str = Form(config.srgcgi_username),
@@ -523,6 +548,10 @@ async def settings_update(request: Request,
     else:
         remove_crontab(cron_user=current_user)
 
+    ## Make sure we use productnames
+    if led_type not in ['Bali', 'Cancun']:
+        led_type = 'Cancun'
+
     ## After pressing submit we need to save dict to settings.json
     data = {
         'vlc_default_videodir': vlc_default_videodir,
@@ -531,6 +560,9 @@ async def settings_update(request: Request,
         'adcp_port': adcp_port,
         'adcp_password': adcp_password,
         'adcp_use_schedule': adcp_use_schedule,
+        'novastar_host': novastar_host,
+        'novastar_port': novastar_port,
+        'led_type': led_type,
         'srgcgi_host': srgcgi_host,
         'srgcgi_port': srgcgi_port,
         'srgcgi_username': srgcgi_username,
